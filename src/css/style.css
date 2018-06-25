@@ -1,28 +1,23 @@
 /* Theme Variables */
-/* Theme Mixins*/
 /* Reset */
 html, body, * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Hk Grotesk";
 }
 
-input:focus, button:focus {
+input:focus {
   outline: none;
 }
 
-/* Theme defaults */
+/* Dom styles */
 body {
   background-color: #eeeeee;
 }
 
-* {
-  font-family: "Hk Grotesk";
-}
-
-/* Dom Styles */
-.headaccent {
-  z-index: -1;
+.header-accent {
+  z-index: -2;
   position: fixed;
   top: 0;
   width: 100%;
@@ -32,42 +27,64 @@ body {
 }
 
 .assistant {
-  width: 87%;
-  margin-left: 7%;
-  margin-right: 7%;
+  position: fixed;
   top: 0;
+  width: 87%;
+  margin: 0 7%;
   margin-top: 1.5rem;
   padding: 1rem 1.5rem;
-  border-radius: 1.5rem;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
   background-color: white;
+  border-radius: 1.5rem;
+  display: flex;
+  justify-content: space-between;
 }
 
-.assistant > input {
+.assistant input {
   border: 0;
+  width: 90%;
+  flex-grow: 1;
+  margin-left: 1rem;
+}
+
+.search-dim {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100vh;
+  background-color: black;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s opacity, 0s visibility 0.3s;
+  will-change: opacity, visibility;
+}
+
+.show {
+  visibility: visible;
+  opacity: 0.5;
+  transition: 0.3s opacity;
 }
 
 .bottom-action-bar {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   position: fixed;
   bottom: 0;
-  background-color: white;
-  width: 100%;
-  height: 3.4rem;
+  height: 3.4em;
   box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.1);
 }
 
 .bottom-action-bar > .left-menu {
-  width: 4rem;
+  font-size: 1.3rem;
+  flex-basis: 4rem;
   text-align: center;
 }
 
-.bottom-action-bar > .right-menu {
-  width: 4rem;
-  text-align: center;
+.bottom-action-bar > .left-menu span {
+  padding: 0.5rem 1rem;
 }
 
 .bottom-action-bar > .action {
@@ -77,93 +94,90 @@ body {
 
 .bottom-action-bar > .action .button {
   position: relative;
+  display: flex;
+  width: 87%;
+  margin: 0 7%;
+  justify-content: center;
   top: -1.7rem;
-  background: #ffc000;
-  border: 0;
+  background: #FFc000;
   border-radius: 1.7rem;
   padding: 1rem 2rem;
-  font-weight: 900;
+  font-weight: 500;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
 }
 
-.bottom-action-bar > .action .action-window {
-  z-index: 1;
-  position: fixed;
-  width: 100vw;
-  height: 30vh;
-  background-color: white;
-  bottom: -31vh;
-  transition: 0.3s bottom, 0.3s box-shadow;
-  will-change: bottom, box-shadow;
-  box-shadow: 0 -30rem 0rem 100vh transparent;
-  left: 0;
-  text-transform: uppercase;
-  color: #777777;
+.bottom-action-bar > .action .lnr {
+  font-size: 1.5em;
+  margin-right: 0.75rem;
 }
 
-.bottom-action-bar > .action .action-window select {
-  background-color: white;
-  font-size: 1.1rem;
-  border: 0;
-  padding: 0.5rem 0;
-  font-weight: 900;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.bottom-action-bar > .action .action-window .travelbtn {
-  background-color: #FFc000;
-  border: 0;
-  padding: 1.5rem;
-  border-radius: 50%;
-}
-
-.bottom-action-bar > .action #action-collapse:checked ~ .action-window {
-  bottom: 0;
-  box-shadow: 0 -30rem 0rem 100vh rgba(0, 0, 0, 0.5);
+.bottom-action-bar > .right-menu {
+  font-size: 1.3rem;
+  flex-basis: 4rem;
+  text-align: center;
 }
 
 .bottom-drawer {
   position: fixed;
-  z-index: 10;
   width: 100%;
-  bottom: -19rem;
   height: 18rem;
+  background-color: white;
   box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.1);
   border-radius: 5% 5% 0 0;
-  background-color: white;
+  bottom: -19rem;
   transition: 0.3s bottom;
   will-change: bottom;
-  padding: 1rem;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.bottom-drawer img {
+.bottom-drawer > .profile {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.bottom-drawer > .profile > img {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
   margin-right: 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.bottom-drawer .divider {
-  width: 100%;
-  height: 1px;
-  background-color: #ddd;
+.bottom-drawer > .profile .name {
+  font-weight: 500;
 }
 
-.dark-overlay {
+.bottom-drawer > .profile .email {
+  font-size: 0.8rem;
+  color: #aaaaaa;
+}
+
+.bottom-drawer > .profile .settings {
+  flex-grow: 1;
+  text-align: right;
+  font-size: 1.3rem;
+  margin-right: 0.5rem;
+}
+
+.bottom-drawer .menu-item {
+  padding: 1.5rem;
+}
+
+.bottom-dim {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
-  z-index: -1;
   background-color: black;
   opacity: 0;
   visibility: hidden;
-  will-change: visibility, opacity;
   transition: 0.3s opacity, 0s visibility 0.3s;
+  will-change: opacity, visibility;
 }
 
 #bottom-menu-collapse {
@@ -174,46 +188,33 @@ body {
   bottom: 0rem;
 }
 
-#bottom-menu-collapse:checked ~ .dark-overlay {
-  opacity: 0.5;
+#bottom-menu-collapse:checked ~ label > .bottom-dim {
   visibility: visible;
-  transition: 0s visibility, 0.3s opacity;
-}
-
-#bottom-menu-collapse:checked root {
-  display: none;
+  opacity: 0.5;
+  transition: 0.3s opacity;
 }
 
 /* Theme Helpers */
-.accent {
-  background-color: #FFc000;
-}
-
 .card {
   width: 87%;
-  margin-left: 7%;
-  margin-right: 7%;
+  margin: 1rem 7%;
   background-color: white;
   border-radius: 1.5rem;
-  padding: 1rem 1.5rem;
+  padding: 1.5rem;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
 }
 
 .card > h3 {
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
 }
 
-.card-switch {
+.card .card-switch {
   border: 0;
   outline: 0;
-  padding: 0rem 0.5rem;
-  color: #aaaaaa;
+  padding: 0.25rem 0.5rem;
+  margin-left: 1rem;
+  color: #FFc000;
   background-color: white;
-  font-weight: 600;
-}
-
-/* Display Helpers */
-.ib {
-  display: inline-block;
+  font-weight: 500;
 }
 /*# sourceMappingURL=style.css.map */
