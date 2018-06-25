@@ -3,12 +3,100 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    
+    <!-- Title-->
+    <title>LRT-1</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Fonts --> <!-- Testing ko lang itong linear-icons pero dapat material icons itu -->
+    <link rel="stylesheet" href="fonts/linear-icons.css">
+    
 </head>
 <body>
     
+      <!-- Header accent-->
+    <div class="header-accent"></div>
+
+    <!-- Bottom Action Bar -->
+    <div class="bottom-action-bar">
+
+            <!-- Left Menu (Bottom Drawer Trigger) -->
+            <span class="left-menu">
+                <label for="bottom-menu-collapse">
+                    <span class="lnr lnr-menu"></span>
+                </label>
+            </span>
+    
+            <!-- Call to Action Trigger -->
+            <span class="action">
+                <label for="action-collapse">
+                    <span class="button"><span class="lnr lnr-train"></span><span>Ride a Train</span></span>
+                </label>
+            </span>
+    
+            <!-- Right Menu (Community Trigger) -->
+            <span class="right-menu">
+                <span class="lnr lnr-users"></span>
+            </span>
+        </div>
+
+    <!-- Assistant dimmer -->
+    <div class="search-dim"></div>
+
+    <!-- Assistant -->
+    <div class="assistant">
+        <span class="lnr lnr-magnifier"></span>
+            <input type="text" placeholder="Look for directions, places.." onfocus="searchFocus()" onblur="searchBlur()">
+    </div>
+
+    <!-- Cards -->
+    <br><br><br><br><br>
+
+    <div class="card">
+        <h3>Weather<select class="card-switch">
+            <option>Pedro Gil Station</option>
+            <option>United Nations Ave.</option>
+            </select></h3>        
+        <h1 style="font-weight: 100"><span class="lnr lnr-sun"></span> 45° C</h1>
+    </div>
+
+    <!-- Floating Drawers-->
+    <input type="checkbox" id="bottom-menu-collapse">
+    <label for="bottom-menu-collapse">
+        <div class="bottom-dim"></div>
+    </label>
+
+    <!-- Bottom Menu Drawer -->
+    <div class="bottom-drawer">
+        <div class="profile">
+            <img src="custom/formal.jpg">
+            <span>
+                <div class="name">Jack Sparrow</div>
+                <span class="email">jsparrow@gmail.com</span>
+            </span>
+            <span class="settings">
+                <span class="lnr lnr-cog"></span>
+            </span>
+        </div>
+
+        <span class="menu-item">Manage Cards</span>
+        
+    </div>
+    
+    <script>
+        
+        /* Dim background on search bar focus */
+        function searchFocus(){
+            document.querySelector(".search-dim").classList.add("show")
+        }
+
+        function searchBlur(){
+            document.querySelector(".search-dim").classList.remove("show")
+        }
+    
+    </script>
 </body>
 </html>
