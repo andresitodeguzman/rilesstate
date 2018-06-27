@@ -1,47 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FFc000">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <!-- Title-->
     <title>LRT-1</title>
 
     <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Fonts --> <!-- Testing ko lang itong linear-icons pero dapat material icons itu -->
+    <!-- Fonts -->
     <link rel="stylesheet" href="fonts/linear-icons.css">
-    
+    <link rel="stylesheet" href="fonts/hk-grotesk.css">
 </head>
 <body>
     
-      <!-- Header accent-->
-    <div class="header-accent"></div>
+    <!-- Header accent-->
+    <div class="header-accent">
+        
+    </div>
 
     <!-- Bottom Action Bar -->
     <div class="bottom-action-bar">
 
-            <!-- Left Menu (Bottom Drawer Trigger) -->
-            <span class="left-menu">
-                <label for="bottom-menu-collapse">
-                    <span class="lnr lnr-menu"></span>
-                </label>
-            </span>
-    
-            <!-- Call to Action Trigger -->
-            <span class="action">
-                <label for="action-collapse">
+        <!-- Left Menu (Bottom Drawer Trigger) -->
+        <span class="left-menu">
+            <label for="bottom-menu-collapse">
+                <span class="lnr lnr-menu"></span>
+                
+            </label>
+        </span>
+
+        <!-- Call to Action Trigger -->
+        <span class="action">
+            <label for="action-collapse">
                     <span class="button"><span class="lnr lnr-train"></span><span>Ride a Train</span></span>
-                </label>
-            </span>
-    
-            <!-- Right Menu (Community Trigger) -->
-            <span class="right-menu">
-                <span class="lnr lnr-users"></span>
-            </span>
-        </div>
+            </label>
+        </span>
+
+        <!-- Right Menu (Community Trigger) -->
+        <span class="right-menu">
+            <span class="lnr lnr-users"></span>
+        </span>
+    </div>
 
     <!-- Assistant dimmer -->
     <div class="search-dim"></div>
@@ -51,23 +55,30 @@
         <span class="lnr lnr-magnifier"></span>
             <input type="text" placeholder="Look for directions, places.." onfocus="searchFocus()" onblur="searchBlur()">
     </div>
+    
 
     <!-- Cards -->
-    <br><br><br><br><br>
+    <br><br><br><br>
 
-    <div class="card">
-        <h3>Weather<select class="card-switch">
-            <option>Pedro Gil Station</option>
-            <option>United Nations Ave.</option>
-            </select></h3>        
-        <h1 style="font-weight: 100"><span class="lnr lnr-sun"></span> 45° C</h1>
-    </div>
+        <div class="card">
+            <h3>Weather<select class="card-switch">
+                <option>Pedro Gil Station</option>
+                <option>United Nations Ave.</option>
+                </select></h3>        
+            <h1 style="font-weight: 100"><span class="lnr lnr-sun"></span> 45° C</h1>
+        </div>
+    
+    
 
     <!-- Floating Drawers-->
     <input type="checkbox" id="bottom-menu-collapse">
     <label for="bottom-menu-collapse">
         <div class="bottom-dim"></div>
     </label>
+    <input type="checkbox" id="action-collapse">
+    <label for="action-collapse">
+            <div class="action-dim"></div>
+        </label>
 
     <!-- Bottom Menu Drawer -->
     <div class="bottom-drawer">
@@ -85,18 +96,40 @@
         <span class="menu-item">Manage Cards</span>
         
     </div>
-    
-    <script>
-        
-        /* Dim background on search bar focus */
-        function searchFocus(){
-            document.querySelector(".search-dim").classList.add("show")
-        }
 
-        function searchBlur(){
-            document.querySelector(".search-dim").classList.remove("show")
-        }
+    <!-- Action Pane -->
+    <div class="action-pane">
+        <span class="travel-selection">
+            <span>
+            <span class="lnr lnr-chevron-down"></span>
+            <select id="from">
+                <option>EDSA Station</option>
+            </select>
+            
+            <label for="from">From Station</label>
+            </span>
+            <br><hr style="width: 100% " color="#eeeeee" size=0>
+            <span>
+            <span class="lnr lnr-chevron-down"></span>
+            <select id="to">
+                <option>Buendia</option>
+                <option>EDSA Station</option>
+            </select>
+            
+            <label for="to">To Station</label>
+            </span>
+        </span>
+        
+            <span class="travelbtn-container">
+            <button class="travelbtn"><span class="lnr lnr-arrow-right"></span></button>
+            </span>
+    </div>
+
     
-    </script>
+    
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+    
 </body>
 </html>
