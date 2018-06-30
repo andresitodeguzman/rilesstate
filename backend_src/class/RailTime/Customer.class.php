@@ -11,12 +11,20 @@
 
 namespace RailTime;
 
-class Customer {
+class Customer extends AccountUtility{
 
     // Properties
     private $mysqli;
 
     public $customer_id;
+    public $first_name;
+    public $last_name;
+    public $username;
+    public $password;
+    public $profile_picture;
+    public $status;
+    public $gender;
+    public $date_registered;
 
     // Methods
 
@@ -35,11 +43,37 @@ class Customer {
 
     /**
      * get()
-     * @param: Int $id
+     * @param: Int $customer_id
      * @return: Array
      */
-    public function get(Int $id){
-        return array();
+    final public function get(Int $customer_id){
+        // Set prop
+        $this->customer_id = $customer_id;
+        // Prepare Statement
+        $stmt = $this->mysqli->prepare("SELECT `customer_id`,`first_name`,`last_name`,`username`,`profile_picture`,`status`,`gender`,`date_registered` FROM `customer` WHERE `customer_id`=? LIMIT 1");
+        // Bind Parameters
+        $stmt->bind_param("i", $this->customer_id);
+        // Execute query
+        $stmt->execute();
+        // Bind result        
+        $stmt->bind_result($customer_id, $first_name, $last_name, $username, $profile_picture, $status, $gender, $date_registered);
+        // Create empty arr
+        $customer_info = array();
+        // Fetch data
+        while($stmt->fetch()){
+            $customer_info = array(
+                "customer_id"=>$customer_id,
+                "first_name"=>$first_name,
+                "last_name"=>$last_name,
+                "username"=>$username,
+                "profile_picture"=>$profile_picture,
+                "status"=>$status,
+                "gender"=>$gender,
+                "date_registered"=>$date_registered
+            );
+        }
+        // Return Result
+        return $customer_info;
     }
 
     /**
@@ -47,7 +81,7 @@ class Customer {
      * @param: none
      * @return: Array
      */
-    public function getAll(){
+    final public function getAll(){
         // Make query
         $query = "SELECT * FROM `customer` LIMIT 50";
 
@@ -71,21 +105,21 @@ class Customer {
      * @param: Array $array
      * @return: String/Bool
      */
-    public function add(Array $array){
+    final public function add(Array $array){
         return True;
     }
 
     /**
      * delete()
-     * @param: Int $id
+     * @param: Int $customer_id
      * @return: Bool
      */
-    public function delete(Int $id){
+    final public function delete(Int $customer_id){
         // Set as prop
-        $this->id = $id;
+        $this->id = $customer_id;
         
         // Prepare statement
-        $stmt = $this->mysqli->prepare("DELETE FROM `customer` WHERE `id`=?");
+        $stmt = $this->mysqli->prepare("DELETE FROM `customer` WHERE `customer_id`=?");
         // Bind parameters
         $stmt->bind_param("i",$this->id);
 
@@ -102,7 +136,7 @@ class Customer {
      * @param: Array $array;
      * @return: String/Bool
      */
-    public function update($array){
+    final public function update($array){
         return True;
     }
     
