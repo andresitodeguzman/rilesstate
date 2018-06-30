@@ -48,7 +48,22 @@ class Customer {
      * @return: Array
      */
     public function getAll(){
-        return array();
+        // Make query
+        $query = "SELECT * FROM `customer` LIMIT 50";
+
+        // Create blank array
+        $arr = array();
+
+        // Do Query
+        if($result = $this->mysqli->query($query)){
+            // Loop along the results
+            while($cust = $result->fetch_array()){
+                $arr[] = $cust;
+            }
+        }
+
+        // Return final result
+        return $arr;
     }
 
     /**
@@ -66,7 +81,20 @@ class Customer {
      * @return: Bool
      */
     public function delete(Int $id){
-        return True;
+        // Set as prop
+        $this->id = $id;
+        
+        // Prepare statement
+        $stmt = $this->mysqli->prepare("DELETE FROM `customer` WHERE `id`=?");
+        // Bind parameters
+        $stmt->bind_param("i",$this->id);
+
+        // Execute query
+        if($stmt->execute()){
+            return True;
+        } else {
+            return False;
+        }
     }
 
     /**
