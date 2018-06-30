@@ -15,7 +15,7 @@ Members:
     De La Salle University - Dasmariñas\
     College of Science and Computer Studies\
     BS Information Technology (on-going)\
-    bayan.mahal@gmail.com\
+    bayan.mahal@gmail.com
 
 * Tristan Jules Rosales
 
