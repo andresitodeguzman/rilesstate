@@ -22,7 +22,6 @@ class Customer extends AccountUtility{
     public $username;
     public $password;
     public $profile_picture;
-    public $status;
     public $gender;
     public $date_registered;
 
@@ -56,7 +55,7 @@ class Customer extends AccountUtility{
         // Execute query
         $stmt->execute();
         // Bind result        
-        $stmt->bind_result($customer_id, $first_name, $last_name, $username, $profile_picture, $status, $gender, $date_registered);
+        $stmt->bind_result($customer_id, $first_name, $last_name, $username, $profile_picture, $gender, $date_registered);
         // Create empty arr
         $customer_info = array();
         // Fetch data
@@ -67,7 +66,40 @@ class Customer extends AccountUtility{
                 "last_name"=>$last_name,
                 "username"=>$username,
                 "profile_picture"=>$profile_picture,
-                "status"=>$status,
+                "gender"=>$gender,
+                "date_registered"=>$date_registered
+            );
+        }
+        // Return Result
+        return $customer_info;
+    }
+
+    /**
+     * getByUsername()
+     * @param: String $username
+     * @return: Array
+     */
+    final public function getByUsername(String $username){
+        // Set Prop
+        $this->username = $username;
+        // Prepare Statement
+        $stmt = $this->mysqli->prepare("SELECT `customer_id`,`first_name`,`last_name`,`username`,`profile_picture`,`status`,`gender`,`date_registered` FROM `customer` WHERE `username`=? LIMIT 1");
+        // Bind Parameters
+        $stmt->bind_param("s", $this->username);
+        // Execute query
+        $stmt->execute();
+        // Bind result        
+        $stmt->bind_result($customer_id, $first_name, $last_name, $username, $profile_picture, $gender, $date_registered);
+        // Create empty arr
+        $customer_info = array();
+        // Fetch data
+        while($stmt->fetch()){
+            $customer_info = array(
+                "customer_id"=>$customer_id,
+                "first_name"=>$first_name,
+                "last_name"=>$last_name,
+                "username"=>$username,
+                "profile_picture"=>$profile_picture,
                 "gender"=>$gender,
                 "date_registered"=>$date_registered
             );
@@ -106,7 +138,57 @@ class Customer extends AccountUtility{
      * @return: String/Bool
      */
     final public function add(Array $array){
-        return True;
+        // Check for empty fields
+        if(empty($array['first_name'])) return "First Name is Required";
+        if(empty($array['last_name'])) return "Last Name is Required";
+        if(empty($array['username'])) return "Username is Required";
+        if(empty($array['password'])) return "Password is Required";
+        if(!passwordValid($password)) return "Password Too Short or Too Weak";
+        if($this->usernameExists($array['username'])) return "Username already in use";
+
+        // Add to props
+        $this->first_name = strip_tags($array['first_name']);
+        $this->last_name = strip_tags($array['last_name']);
+        $this->username = strip_tags($array['username']);
+        $this->password = strip_tags($array['password']);
+        if(!empty($array['profile_picture'])) $this->profile_picture = strip_tags($array['profile_picture']);
+        if(!empty($array['gender'])) $this->gender = strip_tags($array['gender']);
+
+        // Prepare and bind
+        $stmt = $this->mysqli->prepare("INSERT INTO `customer`(`first_name`,`last_name`,`username`,`password`,`profile_picture`,`gender`) VALUES (?,?,?,?,?,?)");
+        $stmt->bind_param("ssssss",$this->first_name,$this->last_name,$this->username,$this->password, $this->profile_picture, $this->gender);
+
+        // Execute statement
+        if($stmt->execute()){
+            return True;
+        } else {
+            return False;
+        }
+    }
+
+    /**
+     * usernameExists()
+     * @param: String $username
+     * @return: Bool
+     */
+    final public function usernameExists(String $username){
+        // Prepare Statement
+        $stmt = $this->mysqli->prepare("SELECT `customer_id` FROM `customer` WHERE `username`=? LIMIT 1");
+        // Bind Parameters
+        $stmt->bind_param("s", $username);
+        // Execute
+        $stmt->execute();
+
+        // Bind Result
+        $stmt->bind_result($uname);
+        // Check
+        while($stmt->fetch()){
+            if($uname){
+                return True;
+            } else {
+                return False;
+            }
+        }
     }
 
     /**
@@ -136,8 +218,40 @@ class Customer extends AccountUtility{
      * @param: Array $array;
      * @return: String/Bool
      */
-    final public function update($array){
+    final public function update(Array $array){
+        $this->customer_id = $array['customer_id'];
+        $customer_info = $this->get($this->customer_id);
+        if(empty($customer_info)) return "Customer does not exist";
         return True;
+    }
+
+    final public function updateUsername(Array $array){
+        $this->customer_id = $array['customer_id'];
+        $this->username = $this->usernameSanitize($array['username']);
+
+        $customer_info = $this->get($customer_id);
+        if($customer_info['username'] == $username) return False;
+
+        $stmt = $this->mysqli->prepare("UPDATE `customer` SET `username`=? WHERE `customer_id`=?");
+        $stmt->bind_param("si", $this->username, $this->customer_id);
+        return True;
+    }
+
+    final public function updatePassword(Array $array){
+        $this->customer_id = $array['customer_id'];
+        if($this->passwordValid($array['password']) == False) return False;
+
+        $password = $array['password'];
+        $this->password = $this->passwordHash($password);
+        
+        $stmt = $this->mysqli->prepare("UPDATE `customer` SET `password`=? WHERE `customer_id`=?");
+        $stmt->bind_param("s", $this->password);
+        
+        if($stmt->execute()){
+            return True;
+        } else {
+            return False;
+        }
     }
     
 }
