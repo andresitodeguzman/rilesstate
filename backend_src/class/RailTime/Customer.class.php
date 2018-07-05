@@ -269,7 +269,7 @@ class Customer extends AccountUtility {
         $this->id = $customer_id;
         
         // Prepare statement
-        $stmt = $this->mysqli->prepare("DELETE FROM `customer` WHERE `customer_id`=?");
+        $stmt = $this->mysqli->prepare("DELETE FROM `customer` WHERE `customer_id`=? LIMIT 1");
         // Bind parameters
         $stmt->bind_param("i",$this->id);
 

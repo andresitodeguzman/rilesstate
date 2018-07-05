@@ -4,7 +4,7 @@
  * 2018
  * 
  * API
- * Customer
+ * Station
  * 
  * delete
  */
@@ -17,20 +17,20 @@ require_once('../db.php');
 require_once('../autoload.php');
 
 // Checks if all the required data has been sent
-if(empty($_REQUEST['customer_id'])) die(throwError("ID is Required"));
+if(empty($_REQUEST['station_id'])) die(throwError("ID is Required"));
 
 // Create a var and sanitize.
-$id = strip_tags($_REQUEST['customer_id']);
+$id = strip_tags($_REQUEST['station_id']);
 
 // Call the method
-$data = $customer->delete($id);
+$data = $station->delete($id);
 
 // Check if data is present or empty
 if($data !== False){
     echo json_encode(
         array(
             "code"=>"200",
-            "message"=>"Customer info deleted successfully!"
+            "message"=>"Station deleted successfully!"
         )
     );
 } else {

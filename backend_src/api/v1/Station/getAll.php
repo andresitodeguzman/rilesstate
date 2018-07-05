@@ -4,7 +4,7 @@
  * 2018
  * 
  * API
- * Customer
+ * Station
  * 
  * getAll  
  */
@@ -17,7 +17,7 @@ require_once('../db.php');
 require_once('../autoload.php');
 
 // Call the method
-$data = $customer->getAll();
+$data = $station->getAll();
 
 // Check if data is present or empty
 if($data !== False){
