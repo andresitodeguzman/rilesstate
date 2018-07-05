@@ -89,7 +89,7 @@ class Customer extends AccountUtility {
         // Set Prop
         $this->username = $username;
         // Prepare Statement
-        $stmt = $this->mysqli->prepare("SELECT `customer_id`,`first_name`,`middle_name`,`last_name`,`email`,`mobile_number`,`username`,`profile_picture`,`gender`,`date_registered` FROM `customer` WHERE `customer_id`=? LIMIT 1");
+        $stmt = $this->mysqli->prepare("SELECT `customer_id`,`first_name`,`middle_name`,`last_name`,`email`,`mobile_number`,`username`,`profile_picture`,`gender`,`date_registered` FROM `customer` WHERE `username`=? LIMIT 1");
         // Bind Parameters
         $stmt->bind_param("s", $this->username);
         // Execute query
@@ -377,12 +377,12 @@ class Customer extends AccountUtility {
         if($this->usernameExists($this->username) == True){
             $hash_password = $this->getPasswordByUsername($this->username);
             if($this->passwordVerify($this->password,$hash_password) == True){
-                return $this->getByUsername($this->username);
+                return array("code"=>200,"message"=>$this->getByUsername($this->username));
             } else {
-                return "Passsword is incorrect";
+                return array("code"=>500,"message"=>"Passsword is incorrect");
             }
         } else {
-            return "Account does not exist";
+            return array("code"=>500,"message"=>"Account does not exist");
         }
     }
 

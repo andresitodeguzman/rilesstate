@@ -13,7 +13,7 @@ namespace RailTime;
 
 class AccountUtility {
     
-    public function passwordValid($password){
+    public function passwordValid(String $password){
         if(strlen($password) < 8){
             return False;
         } else {
@@ -29,12 +29,12 @@ class AccountUtility {
         }
     }
 
-    public function passwordHash($password){
+    public function passwordHash(String $password){
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
         return $password_hash;
     }
 
-    public function passwordVerify($password,$hash){
+    public function passwordVerify(String $password, String $hash){
         if(password_verify($password,$hash)){
             return True;
         } else {
@@ -42,7 +42,7 @@ class AccountUtility {
         }
     }
 
-    public function usernameSanitize($username){
+    public function usernameSanitize(String $username){
         $username = strtolower(str_replace(' ','',$username));
         return $username;
     }
