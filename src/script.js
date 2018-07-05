@@ -10,29 +10,13 @@
 
     var __screens=['#parent','#onboarding','#home']
 */ 
-var __screens=['#parent','#onboarding'] // In this case, starts with #onboarding activity
+var __screens=['#parent','#onboarding','#home'] // In this case, starts with #onboarding activity
 
 /** Cards that are displayed on the home dashboard
  *  User can add/remove cards
 */ 
 
-var __cards=[{type: 'weather'}  ,{type: 'station'}
-            ]
-
-/**
- * These are global methods that should be accessed by components
- * that can control the switching of screens
- */
-
-var __methods = {
-                    push : function(page){
-                        this.screens.push(page);
-                    },
-                    
-                    pop: function(page){
-                        this.screens.pop()
-                    }
-}
+var __cards=[{type: 'weather'}  ,{type: 'station'},{type: 'nearby'}]
 
 /**
  * Account details
@@ -52,6 +36,28 @@ var __travelnotes = {
     progress: 0.5
 }
 
+var __recommendations = [
+    {name:'Establishment Name', location:'City, Province'},
+    {name:'National Museum of Natural History', location:'Somewhere, Here'},
+    {name:'National Museum of Anthropology', location:'Somewhere, There'},
+    {name:'National Museum of Fine Arts', location:'Somewhere, There'},
+]
+
+/**
+ * These are global methods that should be accessed by components
+ * that can control the switching of screens
+ */
+
+var __methods = {
+    push : function(page){
+        this.screens.push(page);
+    },
+    
+    pop: function(page){
+        this.screens.pop()
+    }
+}
+
 
 /**
  * Activity Component
@@ -68,10 +74,16 @@ Vue.component('activity', {
         show: function(){
             return this.screens.includes('#'+this.id)
         },
+        secondpeek: function(){
+            var second = this.screens[this.screens.length - 2]
+            if(second == '#parent')
+                return false
+            else return second == '#' + this.id;
+        },
     },
     props:['id'],
     template: `<transition name='slidertl'>
-    <div class="activity fixed white high wide" v-bind:id="id" style="transition: 0.5s transform" v-if="show"><slot></slot></div>
+    <div class="activity fixed white high wide" v-bind:class="{shift: secondpeek}" v-bind:id="id" style="transition: 0.5s transform" v-if="show"><slot></slot></div>
     </transition>`
 })
 
@@ -129,12 +141,12 @@ Vue.component('onboarding', {
  * Slides for Onboarding
  */
 Vue.component('slide', {
-    props:['title'],
+    props:['title','body'],
     template: `
     <div class="wide flex column justify-center align-center center">
         <span class="icon-large accent-text lnr lnr-train"></span>
         <span class="large bold" style="margin: 3rem 0 2rem">{{title}}</span>
-        <span class="wide-75">The quick brown fox jumps over the lazydog. Remember me though I have to say goodbye.</span>
+        <span class="wide-75">{{body}}</span>
     </div>
     `
 })
@@ -145,6 +157,7 @@ Vue.component('login',{
             return{
                 screens: __screens,
                 translate: 0,
+                mode: "signup"
             }
     },
     methods:{
@@ -156,12 +169,45 @@ Vue.component('login',{
     },
     template:`
     
-        <div id="Register" class="flex column padding-large">
-            <input type="text" placeholder="username"><br>
-            <input type="email" placeholder="email"><br>
-            <input type="password" placeholder="password"><br>
-            <input class="padding" type="submit" @click.prevent-default="push('#success')"><br>
-        </div>`
+    <div class="activity login">
+    <h3>
+        <span class="option" v-bind:class="{active:mode==='signup'}"  @click="mode='signup'">Sign Up</span>
+        <span class="option"  v-bind:class="{active:mode==='login'}" @click="mode='login'">Login</span>
+    </h3>
+    <div class="inputs">
+        
+            <span class="input">
+                    <input type="text" placeholder="Juan dela Cruz"  v-show="mode=='signup'"><span class="lnr lnr-user"></span>
+            </span>
+            <span class="input">
+                    <input type="email" v-bind:placeholder="mode=='signup' ? 'juandelacruz@email.com' : 'Email or Username'"><span class="lnr lnr-envelope"></span>
+            </span>
+            <span class="input">
+                    <input type="password" placeholder="••••••••"><span class="lnr lnr-lock"></span>
+            </span>
+            
+            
+            <input type="submit" @click="screens.push('#success')" v-bind:value="mode=='signup' ? 'Create Account' : 'Login'">
+            <button><small>or </small> Continue as Guest</button>
+
+            <div class="connect">
+                    <span class="connection">
+                        <span class="lnr lnr-envelope"></span>
+                    </span>
+                    <span class="connection">
+                        <span class="lnr lnr-sun"></span>
+                        </span>
+                    <span class="connection">
+                        <span class="lnr lnr-rocket"></span>
+                    </span>
+            </div>
+        
+    </div>
+    
+
+
+</div>
+        `
 })
 
 /** Card */
@@ -182,6 +228,7 @@ Vue.component('card',{
             <slot></slot>
             <weather v-if="type=='weather'"></weather>
             <station v-if="type=='station'"></station>
+            <nearby v-if="type=='nearby'"></nearby>
         </div>`
 
 })
@@ -250,6 +297,28 @@ Vue.component('station',{
     </div>`
 })
 
+/** Nearby component */
+Vue.component('nearby',{
+    data: function(){
+        return {
+            recommendations: __recommendations
+        }
+    },
+    template:`
+    <div class="places">
+                <h4>Near You</h4>
+                <span class="items">
+                <span class="item" v-for="item in recommendations">
+                    <img src="custom/img.jpg">
+                    <span class="name">{{item.name}}</span>
+                    <span class="location">{{item.location}}</span>
+                </span>
+            </span>
+            </div>
+    `
+    })
+    
+
 /** Ride Panel (need pa ng props) */
 Vue.component('ride-panel',{
     data: function(){
@@ -258,9 +327,11 @@ Vue.component('ride-panel',{
             message: __travelnotes.message,
             timeremaining: __travelnotes.timeremaining,
             nextstation: __travelnotes.nextstation,
-            progress: __travelnotes.progress
+            progress: __travelnotes.progress,
+            screens: __screens,
         }
     },
+    methods: __methods,
     computed:{
         tipstyle: function(){
             return "margin-left: " + this.progress * 100 + "%"
@@ -269,7 +340,8 @@ Vue.component('ride-panel',{
     template: ` 
     <div class="ride-panel">
     <input type="checkbox" id="map-reveal" style="display: none">
-        <span class="title">Ride a Train</span>
+        <div class="flex wide space-between align-center"><span class='padding padding-x-large lnr lnr-chevron-left bold' @click="screens.pop()"></span><span class="title">Ride a Train</span><span class="padding padding-x-large"></span></div>
+        
         <span class="view">
         <span class="message-large">{{title}}</span>
         <span class="sub-message">
@@ -331,7 +403,7 @@ Vue.component('assistant',{
                 </transition>
                     <div id="assistant" class="wide white fixed shadow flex space-between align-center">
                 <span class="lnr lnr-magnifier absolute" style="margin-left: 1.5rem"></span>    
-                <input type="text" class="wide relative transparent" style="padding: 1rem 3.5rem;" placeholder="Look for directions, places.." @focus="showbody = true"
+                <input type="text" class="wide relative transparent" style="padding: 1rem 3.5rem; font-size: 1rem;" placeholder="Look for places.." @focus="showbody = true"
                 @blur="showbody = false" @keypress="query = $event.target.value" @input="query = $event.target.value">
             
             
@@ -344,10 +416,6 @@ Vue.component('assistant',{
     `
 })
 
-/** Nearby component */
-Vue.component('nearby',{
-
-})
 
 
 
