@@ -1,0 +1,66 @@
+<?php
+/**
+ * RilesState
+ * 2018
+ * 
+ * API
+ * Customer
+ * 
+ * add
+ */
+
+// Secure the API. Always include first.
+require_once('../secure.php');
+
+// Adds the DB connection and create Objects
+require_once('../db.php');
+require_once('../autoload.php');
+
+// Checks if all the required data has been sent
+if(empty($_POST['first_name'])) die(throwError("First Name is Required"));
+if(empty($_POST['middle_name'])) $middle_name = "";
+if(empty($_POST['last_name'])) die(throwError("Last Name is Required"));
+if(empty($_POST['email'])) $email = "";
+if(empty($_POST['mobile_number'])) $mobile_number = "";
+if(empty($_POST['username'])) die(throwError("Username is Required"));
+if(empty($_POST['password'])) die(throwError("Gender is Required"));
+if(empty($_POST['gender'])) $gender = "";
+
+
+// Create a var and sanitize.
+$first_name = $_POST['first_name'];
+if(!empty($_POST['middle_name'])) $middle_name = $_POST['middle_name'];
+$last_name = $_POST['last_name'];
+if(!empty($_POST['email'])) $email = $_POST['email'];
+if(!empty($_POST['mobile_number'])) $mobile_number = $_POST['mobile_number'];
+$username = $_POST['username'];
+$password = $_POST['password'];
+if(!empty($_POST['gender'])) $gender = $_POST['gender'];
+
+$array = array(
+    "first_name"=>$first_name,
+    "middle_name"=>$middle_name,
+    "last_name"=>$last_name,
+    "email"=>$email,
+    "mobile_number"=>$mobile_number,
+    "username"=>$username,
+    "password"=>$password,
+    "gender"=>$gender
+);
+
+// Call the method
+$data = $customer->add($array);
+
+// Check if data is present or empty
+if($data !== True){
+    throwError($data);
+} else {
+    echo json_encode(
+        array(
+            "code"=>"200",
+            "message"=>"Account created successfully!"
+        )
+    );
+}
+
+?> 
