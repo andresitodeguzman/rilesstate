@@ -1,14 +1,321 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
-</head>
-<body>
+    <!-- Default Setting -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#FFc000">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="fonts/linear-icons.css">
+    <link rel="stylesheet" href="fonts/hk-grotesk.css">
+
+    <!-- Title-->
+    <title>LRT-1</title>
+
+    <!-- Manifest -->
+    <!-- <link rel="manifest" href="/manifest.json"> -->
+
     
+</head>
+
+<body>
+    <!-- Checkbox controllers -->
+    <input type="checkbox" id="bottom-menu-collapse">
+    <input type="checkbox" id="action-collapse">
+    <input type="checkbox" id="community-reveal">
+    <input type="checkbox" id="ride-reveal">
+
+    <div class="home">
+
+    <!-- Header Accent -->
+    <div class="header-accent"></div>
+
+    <!-- Bottom Action Bar -->
+    <div class="bottom-action-bar">
+        <!-- Left Menu -->
+        <span class="left-menu">
+            <label for="bottom-menu-collapse">
+                <span class="lnr lnr-menu"></span>
+            </label>
+        </span>
+
+        <!-- Call to Action -->
+        <span class="action">
+            <label for="action-collapse">
+                <span class="button">
+                    <span class="lnr lnr-train"></span>
+                    <span>Ride a Train</span>
+                </span>
+            </label>
+        </span>
+
+        <!-- Right Menu -->
+        <span class="right-menu">
+            <label for="community-reveal">
+                <span class="lnr lnr-users"></span>
+            </label>
+        </span>
+    </div>
+
+    <!-- Assistant Dimmer -->
+    <div class="search-dim"></div>
+
+    <!-- Assistant -->
+    <div class="assistant">
+        <span class="lnr lnr-magnifier"></span>
+        <input type="text" placeholder="Look for directions, places.." onfocus="searchFocus()" onblur="searchBlur()">
+    </div>
+
+    <!-- Card Container -->
+    <div class="card-container">
+        
+    <!-- Weather Card -->
+    <div class="card">
+            <h4>Taft Avenue</h4>
+            <div class="weather-main">
+                <span class="detail-main">
+                    <span class="lnr lnr-sun"></span>
+                    <span class="text-detail">SUNNY</span>
+                </span>
+                <span class="temperature">
+                    45°
+                </span>
+                
+            </div>
+
+            <div class="weather-sub">
+                <span class="sub-item">
+                    <span class="day">TUE 45°</span>
+                    <span class="lnr lnr-sun"></span>
+                </span>
+                <span class="sub-item">
+                        <span class="day">WED 45°</span>
+                        <span class="lnr lnr-sun"></span>
+                </span>
+                <span class="sub-item">
+                        <span class="day">THUR 45°</span>
+                        <span class="lnr lnr-sun"></span>
+                    </span>
+                <span class="sub-item">
+                        <span class="day">FRI 45°</span>
+                        <span class="lnr lnr-sun"></span>
+                </span>
+            </div>
+    
+    
+        </div>
+        <div class="card">
+            <h4>EDSA Station Information<br><br><br><br><br><br><br></h4>
+        </div>
+        <div class="card">
+            <h4>Special Deals<br><br><br><br><br><br><br></h4>
+        </div>
+        
+    </div>
+
+    <!-- Floating Drawers -->
+    <!-- Bottom Menu dim -->
+    <label for="bottom-menu-collapse">
+        <div class="bottom-dim"></div>
+    </label>
+
+    
+    <label for="action-collapse">
+        <div class="action-dim"></div>
+    </label>
+
+    <div class="generic-dim"></div>
+    
+
+    <!-- Bottom Menu Drawer -->
+    <div class="bottom-drawer">
+        <div class="profile">
+            <img src="custom/img.jpg">
+            <span>
+                <div class="name">John Smith</div>
+                <span class="email">johnsmith@email.com</span>
+            </span>
+            <span class="settings">
+                <span class="lnr lnr-cog"></span>
+            </span>
+        </div>
+
+        <span class="menu-item">Manage Cards</span>
+        <span class="menu-item">LRT-1 Stations</span>
+        <span class="menu-item">Help</span>
+        <span class="menu-item">About</span>
+        
+    </div>
+
+    <!-- Action Pane -->
+    <div class="action-pane">
+        <!-- Travel selectors (left) -->
+        <span class="travel-selection">
+            <span>
+                <span class="lnr lnr-chevron-down"></span>
+                <select>
+                    <option>EDSA</option>
+                </select>
+                <label>From Station</label>
+            </span>
+            <br>
+            <hr style="width: 100%" color="#eeeeee" size=1>
+            <span>
+                <span class="lnr lnr-chevron-down"></span>
+                <select>
+                    <option>United Nations</option>
+                </select>
+                <label>To Station</label>
+            </span>
+        </span>
+        <!-- Travel button (right) -->
+        
+            <label for="action-collapse" class="travelbtn-container"  onclick="showRidePane()">
+            
+                <span class="lnr lnr-arrow-right"></span>
+            
+            </label>
+        
+    </div>
+
+    </div>
+
+    <!-- Community Window -->
+    <div class="community">
+
+    <!-- Header accent-->
+    <div class="header-accent">
+            <span class="header-content">
+                <label for="community-reveal">
+                <span class="lnr lnr-chevron-left"></span></label>
+                <span>Chatrooms</span>
+                <span class="lnr lnr-magnifier"></span>
+            </span>
+        </div>
+    
+        <!-- Category Tabs -->
+        <div class="tabs">
+            <span class="active">
+                <span class="lnr lnr-bubble"></span>
+                Chatrooms</span>
+            <span>
+                <span class="lnr lnr-home"></span>
+                Feed</span>
+            <span>
+                <span class="lnr lnr-user"></span>
+                My Profile</span>
+        </div>
+    
+        <!-- List Items -->
+        <div class="list-item">
+            <span>
+                <img src="custom/img.jpg">
+                <span class="online"></span>
+            </span>
+                
+            <span>
+                <div class="name">Public Chatroom</div>
+                <span class="last">last message here</span>
+            </span>
+            <span class="enter">
+                <span class="lnr lnr-enter"></span>
+            </span>
+    
+        </div>
+        <div class="list-item">
+                <span>
+                    <img src="custom/img.jpg">
+                    <span class="online"></span>
+                </span>
+                    
+                <span>
+                    <div class="name">General Talk</div>
+                    <span class="last">previous message</span>
+                </span>
+                <span class="enter">
+                    <span class="lnr lnr-enter"></span>
+                </span>
+        
+            </div>
+            <div class="list-item">
+                    <span>
+                        <img src="custom/img.jpg">
+                        <span class="online"></span>
+                    </span>
+                        
+                    <span>
+                        <div class="name">Misery and Hatred</div>
+                        <span class="last">old chat</span>
+                    </span>
+                    <span class="enter">
+                        <span class="lnr lnr-enter"></span>
+                    </span>
+            
+                </div>
+    </div>
+
+    <!-- Ride Panel -->
+    <div class="ride-panel">
+        <span class="title">LRT-1 Ride</span>
+        <span class="message-large">Hello John,</span>
+        <span class="sub-message">Thank you for choosing to ride with us.</span>
+        <span class="sub-message">While waiting, here are some things to do.</span>
+        <span class="infodetail">
+            <span class="item">
+                
+                <span class="lnr lnr-clock"></span>
+                <span class="head">Estimated Time</span>
+                <span class="value">10 mins</span>
+            </span>
+            <span class="item">
+                    
+                <span class="lnr lnr-clock"></span>
+                <span class="head">Next Station</span>
+                <span class="value">Libertad</span>
+            </span>
+        </span>
+        <span class="track">
+            <progress max="1" value="0.5"></progress>
+            <span class="start"></span>
+            <span class="tip"></span>
+            <span class="end lnr lnr-map-marker"></span>
+        </span>
+        
+        
+        
+    </div>
+
+    <script>
+        // if ('serviceWorker' in navigator) {
+        // navigator.serviceWorker
+        //     .register('./serviceworker.js')
+        //     .then(function() { console.log('Service Worker Registered'); });
+        // }
+
+
+        // Assistant dim
+        function searchFocus(){
+            document.querySelector(".search-dim").classList.add("show")
+        }
+
+        function searchBlur(){
+            document.querySelector(".search-dim").classList.remove("show")
+        }
+
+        function showRidePane(){
+            document.querySelector("#ride-reveal").setAttribute("checked","true")
+        }
+
+    </script>
+
+
 </body>
+
 </html>
