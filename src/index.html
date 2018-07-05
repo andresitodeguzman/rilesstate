@@ -31,9 +31,9 @@
         <activity id="onboarding">
 
             <onboarding>
-                <slide title="Stuff"></slide>
-                <slide title="Things"></slide>
-                <slide title="Everything"></slide>
+                <slide title="Stuff" body="The programming language used by millions of websites for their server-side processing needs."></slide>
+                <slide title="Things" body="Visual Studio Code is a free source code editor that provides IDE-like features"></slide>
+                <slide title="Everything" body="Vue.js is an open-source progressive JavaScript framework for building powerful Single Page Applications"></slide>
             </onboarding>
         </activity>
 
@@ -44,8 +44,9 @@
 
         <!-- Success -->
         <activity id="success" class="flex justify-center align-center column">
+            <span class="lnr lnr-checkmark-circle margin padding accent-text" style="font-size: 3rem"></span>
             You have registered successfully!
-            <button class="margin padding-small" @click="push('#home')">Launch App</button>
+            <button class="margin padding padding-x-large border-radius-large accent dark-accent-text bold" @click="push('#home')">Launch App</button>
         </activity>
 
 
