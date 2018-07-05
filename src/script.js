@@ -10,12 +10,11 @@
 
     var __screens=['#parent','#onboarding','#home']
 */ 
-var __screens=['#parent','#onboarding','#home'] // In this case, starts with #onboarding activity
+var __screens=['#parent','#onboarding'] // In this case, starts with #onboarding activity
 
 /** Cards that are displayed on the home dashboard
  *  User can add/remove cards
 */ 
-
 var __cards=[{type: 'weather'}  ,{type: 'station'},{type: 'nearby'}]
 
 /**
@@ -36,6 +35,7 @@ var __travelnotes = {
     progress: 0.5
 }
 
+/** Displayed on Nearby card*/
 var __recommendations = [
     {name:'Establishment Name', location:'City, Province'},
     {name:'National Museum of Natural History', location:'Somewhere, Here'},
@@ -71,9 +71,11 @@ Vue.component('activity', {
         }
     },
     computed:{
+        // Boolean that checks if this activity is included in the screen stack (and thus should be rendered)
         show: function(){
             return this.screens.includes('#'+this.id)
         },
+        // Boolean that checks if this activity is below the topmost activity (to perform subtle shift animation on slide transition)
         secondpeek: function(){
             var second = this.screens[this.screens.length - 2]
             if(second == '#parent')
@@ -116,12 +118,7 @@ Vue.component('onboarding', {
     template: `
     
     <div class='wide high flex column'>
-        <div class="grow flex" v-bind:style="style"
-        
-        
-        >
-  
-  
+        <div class="grow flex" v-bind:style="style">
             <slot></slot>
         </div>
         <div class='wide flex space-between'>
