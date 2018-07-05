@@ -11,7 +11,7 @@
 
 namespace RailTime;
 
-class Customer extends AccountUtility{
+class Customer extends AccountUtility {
 
     // Properties
     private $mysqli;
@@ -49,7 +49,7 @@ class Customer extends AccountUtility{
         // Set prop
         $this->customer_id = $customer_id;
         // Prepare Statement
-        $stmt = $this->mysqli->prepare("SELECT `customer_id`,`first_name`,`last_name`,`username`,`profile_picture`,`status`,`gender`,`date_registered` FROM `customer` WHERE `customer_id`=? LIMIT 1");
+        $stmt = $this->mysqli->prepare("SELECT `customer_id`,`first_name`,`last_name`,`username`,`profile_picture`,`gender`,`date_registered` FROM `customer` WHERE `customer_id`=? LIMIT 1");
         // Bind Parameters
         $stmt->bind_param("i", $this->customer_id);
         // Execute query
@@ -83,7 +83,7 @@ class Customer extends AccountUtility{
         // Set Prop
         $this->username = $username;
         // Prepare Statement
-        $stmt = $this->mysqli->prepare("SELECT `customer_id`,`first_name`,`last_name`,`username`,`profile_picture`,`status`,`gender`,`date_registered` FROM `customer` WHERE `username`=? LIMIT 1");
+        $stmt = $this->mysqli->prepare("SELECT `customer_id`,`first_name`,`last_name`,`username`,`profile_picture`,`gender`,`date_registered` FROM `customer` WHERE `username`=? LIMIT 1");
         // Bind Parameters
         $stmt->bind_param("s", $this->username);
         // Execute query
@@ -115,7 +115,7 @@ class Customer extends AccountUtility{
      */
     final public function getAll(){
         // Make query
-        $query = "SELECT * FROM `customer` LIMIT 50";
+        $query = "SELECT `customer_id`,`first_name`,`last_name`,`username`,`profile_picture`,`gender`,`date_registered` FROM `customer` LIMIT 50";
 
         // Create blank array
         $arr = array();
@@ -124,7 +124,16 @@ class Customer extends AccountUtility{
         if($result = $this->mysqli->query($query)){
             // Loop along the results
             while($cust = $result->fetch_array()){
-                $arr[] = $cust;
+                $data = array(
+                    'customer_id'=>$cust['customer_id'],
+                    'first_name'=>$cust['first_name'],
+                    'last_name'=>$cust['last_name'],
+                    'username'=>$cust['username'],
+                    'profile_picture'=>$cust['profile_picture'],
+                    'gender'=>$cust['gender'],
+                    'date_registered'=>$cust['date_registered']
+                );
+                $arr[] = $data;
             }
         }
 
@@ -218,35 +227,62 @@ class Customer extends AccountUtility{
      * @param: Array $array;
      * @return: String/Bool
      */
-    final public function update(Array $array){
+    final public function updateBasic(Array $array){
         $this->customer_id = $array['customer_id'];
         $customer_info = $this->get($this->customer_id);
         if(empty($customer_info)) return "Customer does not exist";
         return True;
     }
 
+    /**
+     * updateUsername()
+     * @param: Array $array
+     * @return: Bool
+     */
     final public function updateUsername(Array $array){
+        // Set props
         $this->customer_id = $array['customer_id'];
         $this->username = $this->usernameSanitize($array['username']);
 
+        // Get current username and check if different
         $customer_info = $this->get($customer_id);
         if($customer_info['username'] == $username) return False;
 
+        // Prepare Statement
         $stmt = $this->mysqli->prepare("UPDATE `customer` SET `username`=? WHERE `customer_id`=?");
+        // Bind Paramaters
         $stmt->bind_param("si", $this->username, $this->customer_id);
-        return True;
+
+        // Execute Query
+        if($stmt->execute()){
+            return True;
+        } else {
+            return False;
+        }
     }
 
+    /**
+     * updatePassword()
+     * @param: Array $array
+     * @return: Bool
+     */
     final public function updatePassword(Array $array){
+        // Set props
         $this->customer_id = $array['customer_id'];
+        // Check if valid passwwrd
         if($this->passwordValid($array['password']) == False) return False;
 
+        // Set props
         $password = $array['password'];
+        // Hash Password
         $this->password = $this->passwordHash($password);
         
+        // Prepare Statement
         $stmt = $this->mysqli->prepare("UPDATE `customer` SET `password`=? WHERE `customer_id`=?");
+        // Bind Parameters
         $stmt->bind_param("s", $this->password);
-        
+
+        // Execute Query
         if($stmt->execute()){
             return True;
         } else {

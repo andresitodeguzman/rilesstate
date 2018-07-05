@@ -10,7 +10,7 @@
  */
 
 // Include the config file (Important)
-require_once("../_system/config.php");
+require_once("../../_system/config.php");
 
 // Set the default timezone to Manila to prevent wrong time/date
 date_default_timezone_set("Asia/Manila");
@@ -24,11 +24,12 @@ header('Content-Type: application/json');
 // Function that will be called when empty or an error occurred
 function throwError(String $msg){
     if(empty($msg)) $msg = "An Unknown Error Occurred";
+    header("HTTP/1.1 500 Error: '$msg'");
     $error = array(
         "code"=>"500",
         "message"=>$msg
     );
-    die($error);
+    die(json_encode($error));
 }
 
 ?>
