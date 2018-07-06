@@ -17,10 +17,10 @@ require_once('../db.php');
 require_once('../autoload.php');
 
 // Checks if all the required data has been sent
-if(empty($_REQUEST['username'])) die(throwError("Username is Required"));
+if(empty($_POST['username'])) die(throwError("Username is Required"));
 
 // Create a var and sanitize
-$username = strip_tags($_REQUEST['username']);
+$username = strip_tags($_POST['username']);
 
 // Call the method
 $data = $customer->getByUsername($username);

@@ -17,10 +17,10 @@ require_once('../db.php');
 require_once('../autoload.php');
 
 // Checks if all the required data has been sent
-if(empty($_REQUEST['station_id'])) die(throwError("ID is Required"));
+if(empty($_POST['station_id'])) die(throwError("ID is Required"));
 
 // Create a var and sanitize.
-$id = strip_tags($_REQUEST['station_id']);
+$id = strip_tags($_POST['station_id']);
 
 // Call the method
 $data = $station->delete($id);

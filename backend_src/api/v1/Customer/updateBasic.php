@@ -25,13 +25,13 @@ if(empty($_POST['email'])) $email = "";
 if(empty($_POST['mobile_number'])) $mobile_number = "";
 if(empty($_POST['gender'])) $gender = "";
 
-$customer_id = $_POST['customer_id'];
-$first_name = $_POST['first_name'];
-if(!empty($_POST['middle_name'])) $middle_name = $_POST['middle_name'];
-$last_name = $_POST['last_name'];
-if(!empty($_POST['email'])) $email = $_POST['email'];
-if(!empty($_POST['mobile_number'])) $mobile_number = $_POST['mobile_number'];
-if(!empty($_POST['gender'])) $gender = $_POST['gender'];
+$customer_id = strip_tags($_POST['customer_id']);
+$first_name = strip_tags($_POST['first_name']);
+if(!empty($_POST['middle_name'])) $middle_name = strip_tags($_POST['middle_name']);
+$last_name = strip_tags($_POST['last_name']);
+if(!empty($_POST['email'])) $email = strip_tags($_POST['email']);
+if(!empty($_POST['mobile_number'])) $mobile_number = strip_tags($_POST['mobile_number']);
+if(!empty($_POST['gender'])) strip_tags($gender = $_POST['gender']);
 
 $array = array(
     "customer_id"=>$customer_id,

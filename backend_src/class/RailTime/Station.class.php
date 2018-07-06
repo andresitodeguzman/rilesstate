@@ -13,6 +13,7 @@ namespace RailTime;
 
 class Station {
 
+    // Properties
     private $mysqli;
 
     public $station_id;
@@ -28,6 +29,8 @@ class Station {
     public $northbound_next;
     public $position;
 
+    // Methods
+
     /**
      * __construct()
      * @param: $mysqli
@@ -41,18 +44,29 @@ class Station {
         $this->mysqli = $mysqli;
     }
 
+    /**
+     * get()
+     * @param: Int $station_id
+     * @return: Array
+     */
     final public function get(Int $station_id){
+        // Check for empty param
         if(empty($station_id)) return "Station ID is Required";
+        // Set props
         $this->station_id = $station_id;
 
+        // Prepare Statement
         $stmt = $this->mysqli->prepare("SELECT `station_id`,`name`,`shortname`,`address`,`city`,`latitude`,`longitude`,`line`,`is_terminal`,`southbound_next`,`northbound_next`,`position` FROM `station` WHERE `station_id`=? LIMIT 1");
+        // Bind Parameters
         $stmt->bind_param("i", $this->station_id);
+        // Execute query
         $stmt->execute();
-
+        // Prepre Result
         $stmt->bind_result($station_id,$name,$shortname,$address,$city,$latitude,$longitude,$line,$is_terminal,$southbound_next,$northbound_next,$position);
-
+        // Create empty array
         $station_arr = array();
 
+        // Fetch result
         while($stmt->fetch()){
             $station_arr = array(
                 "station_id"=>$station_id,
@@ -73,11 +87,17 @@ class Station {
         return $station_arr;
     }
 
+    /**
+     * getAll()
+     * @param: None
+     * @return: Array
+     */
     final public function getAll(){
+        // Prepare query
         $query = "SELECT `station_id`,`name`,`shortname`,`address`,`city`,`latitude`,`longitude`,`line`,`is_terminal`,`southbound_next`,`northbound_next`,`position` FROM `station`";
-
+        // Create empty array
         $arr = array();
-
+        // Do Query
         if($result = $this->mysqli->query($query)){
             while($st = $result->fetch_array()){
                 $data = array(
@@ -102,13 +122,21 @@ class Station {
         return $arr;
     }
 
+    /**
+     * delete()
+     * @param: Int $station_id
+     * @return: Bool
+     */
     final public function delete(Int $station_id){
+        // Check empty fields
         if(empty($station_id)) return "Station ID is Required";
+        // Set props
         $this->station_id = $station_id;
-
+        // Prepare Statement
         $stmt = $this->mysqli->prepare("DELETE FROM `station` WHERE `station_id`=? LIMIT 1");
+        // Bind parameters
         $stmt->bind_param("i", $this->station_id);
-
+        // Do query
         if($stmt->execute()){
             return True;
         } else {
@@ -116,9 +144,15 @@ class Station {
         }
     }
 
+    /**
+     * add()
+     * @param: Array $array
+     * @return: Bool
+     */
     final public function add(Array $array){
+        // Check for empty params
         if(empty($array['name'])) return "Name is Required";
-        
+        // Set params
         $this->name = strip_tags($array['name']);
         if(!empty($array['shortname'])) $this->shortname = strip_tags($array['shortname']);
         if(!empty($array['address'])) $this->address = strip_tags($array['address']);
@@ -130,8 +164,9 @@ class Station {
         if(!empty($array['southbound_next'])) $this->southbound_next = strip_tags($array['southbound_next']);
         if(!empty($array['northbound_next'])) $this->northbound_next = strip_tags($array['northbound_next']);
         if(!empty($array['position'])) $this->position = strip_tags($array['position']);
-
+        // Prepare statement
         $stmt = $this->mysqli->prepare("INSERT INTO `station`(`name`,`shortname`,`address`,`city`,`latitude`,`longitude`,`line`,`is_terminal`,`southbound_next`,`northbound_next`,`position`) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+        // Bind Parameters
         $stmt->bind_param("ssssssisssi",
             $this->name,
             $this->shortname,
@@ -153,10 +188,16 @@ class Station {
 
     }
 
+    /**
+     * update()
+     * @param: Array $array
+     * @return: Bool
+     */
     final public function update(Array $array){
+        //Check for empty params
         if(empty($array['station_id'])) return "Station ID is Required";
         if(empty($array['name'])) return "Name is Required";
-        
+        // Set props
         $this->station_id = strip_tags($array['station_id']);
         $this->name = strip_tags($array['name']);
         if(!empty($array['shortname'])) $this->shortname = strip_tags($array['shortname']);
@@ -169,9 +210,9 @@ class Station {
         if(!empty($array['southbound_next'])) $this->southbound_next = strip_tags($array['southbound_next']);
         if(!empty($array['northbound_next'])) $this->northbound_next = strip_tags($array['northbound_next']);
         if(!empty($array['position'])) $this->position = strip_tags($array['position']);
-
-        $stmt = $this->mysqli->prepare("UPDATE `station` SET WHERE `station_id`=?");
-        $stmt->bind_param("ssssssisssi",
+        // Prepare statement
+        $stmt = $this->mysqli->prepare("UPDATE `station` SET `name`=?,`shortname`=?,`address`=?,`city`=?,`latitude`=?,`longitude`=?,`line`=?,`is_terminal`=?,`southbound_next`=?,`northbound_next`=?,`position`=?  WHERE `station_id`=? LIMIT 1");
+        $stmt->bind_param("ssssssisssii",
             $this->name,
             $this->shortname,
             $this->address,
@@ -182,7 +223,8 @@ class Station {
             $this->is_terminal,
             $this->southbound_next,
             $this->northbound_next,
-            $this->position
+            $this->position,
+            $this->station_id
         );
         if($stmt->execute()){
             return True;

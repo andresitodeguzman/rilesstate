@@ -20,8 +20,8 @@ require_once('../autoload.php');
 if(empty($_POST['customer_id'])) die(throwError("ID is Required"));
 if(empty($_POST['password'])) die(throwError("Password is Required"));
 
-$customer_id = $_POST['customer_id'];
-$password = $_POST['password'];
+$customer_id = strip_tags($_POST['customer_id']);
+$password = strip_tags($_POST['password']);
 
 $array = array(
     "customer_id"=>$customer_id,

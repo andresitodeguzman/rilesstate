@@ -47,6 +47,10 @@ class AccountUtility {
         return $username;
     }
 
+    public function generateID(){
+        return uniqid('',true);
+    }
+
 }
 
 ?>

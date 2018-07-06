@@ -20,8 +20,8 @@ require_once('../autoload.php');
 if(empty($_POST['username'])) die(throwError("Username is Required"));
 if(empty($_POST['password'])) die(throwError("Password is Required"));
 
-$username = $_POST['username'];
-$password = $_POST['password'];
+$username = strip_tags($_POST['username']);
+$password = strip_tags($_POST['password']);
 
 $array = array(
     "username"=>$username,
@@ -32,7 +32,12 @@ $array = array(
 $data = $customer->verifyLogin($array);
 
 if($data['code'] == 200){
-    echo json_encode($data);
+    $array = array(
+        "customer_id"=>$data['message']['customer_id'],
+        "ip_address"=>getUserIP()
+    );
+    $session_data = $session->add($array);
+    echo json_encode(array("code"=>200,"session"=>$session_data,"customer"=>$data['message']));
 } else {
     throwError($data['message']);
 }

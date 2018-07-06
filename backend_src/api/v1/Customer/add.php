@@ -28,14 +28,14 @@ if(empty($_POST['gender'])) $gender = "";
 
 
 // Create a var and sanitize.
-$first_name = $_POST['first_name'];
-if(!empty($_POST['middle_name'])) $middle_name = $_POST['middle_name'];
-$last_name = $_POST['last_name'];
-if(!empty($_POST['email'])) $email = $_POST['email'];
-if(!empty($_POST['mobile_number'])) $mobile_number = $_POST['mobile_number'];
-$username = $_POST['username'];
-$password = $_POST['password'];
-if(!empty($_POST['gender'])) $gender = $_POST['gender'];
+$first_name = strip_tags($_POST['first_name']);
+if(!empty($_POST['middle_name'])) $middle_name = strip_tags($_POST['middle_name']);
+$last_name = strip_tags($_POST['last_name']);
+if(!empty($_POST['email'])) $email = strip_tags($_POST['email']);
+if(!empty($_POST['mobile_number'])) strip_tags($mobile_number = $_POST['mobile_number']);
+$username = strip_tags($_POST['username']);
+$password = strip_tags($_POST['password']);
+if(!empty($_POST['gender'])) $gender = strip_tags($_POST['gender']);
 
 $array = array(
     "first_name"=>$first_name,

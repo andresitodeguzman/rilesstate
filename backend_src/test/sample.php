@@ -1,5 +1,5 @@
 <?php
-$pw = $_REQUEST['password'];
+$pw = $_POST['password'];
 
 function passwordValid(String $password){
     if(strlen($password) < 8){

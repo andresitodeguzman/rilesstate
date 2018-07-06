@@ -17,6 +17,7 @@ require_once('../db.php');
 require_once('../autoload.php');
 
 // Checks if all the required data has been sent
+if(empty($_POST['station_id'])) die(throwError("Station ID is Required"));
 if(empty($_POST['name'])) die(throwError("Name is Required"));
 if(empty($_POST['shortname'])) $shortname = "";
 if(empty($_POST['address'])) $address = "";
@@ -30,6 +31,7 @@ if(empty($_POST['northbound_next'])) $northbound_next = "";
 if(empty($_POST['position'])) $position = "";
 
 // Create a var and sanitize.
+$station_id = strip_tags($_POST['station_id']);
 $name = strip_tags($_POST['name']);
 if(!empty($_POST['shortname'])) $shortname = strip_tags($_POST['shortname']);
 if(!empty($_POST['address'])) $address = strip_tags($_POST['address']);
@@ -43,6 +45,7 @@ if(!empty($_POST['northbound_next'])) $northbound_next = strip_tags($_POST['nort
 if(!empty($_POST['position'])) $position = strip_tags($_POST['position']);
 
 $array = array(
+    "station_id"=>$station_id,
     "name"=>$name,
     "address"=>$address,
     "city"=>$city,
@@ -56,7 +59,7 @@ $array = array(
 );
 
 // Call the method
-$data = $station->add($array);
+$data = $station->update($array);
 
 // Check if data is present or empty
 if($data !== True){
@@ -65,7 +68,7 @@ if($data !== True){
     echo json_encode(
         array(
             "code"=>"200",
-            "message"=>"Station added successfully!"
+            "message"=>"Station edited successfully!"
         )
     );
 }

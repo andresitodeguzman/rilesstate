@@ -16,8 +16,9 @@ require_once('../secure.php');
 require_once('../db.php');
 require_once('../autoload.php');
 
-if(empty($_REQUEST['username'])) throwError("Username is Required");
-$username = $_REQUEST['username'];
+if(empty($_POST['username'])) throwError("Username is Required");
+
+$username = strip_tags($_POST['username']);
 
 // Call the method
 $data = $customer->usernameExists($username);

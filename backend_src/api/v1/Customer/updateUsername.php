@@ -20,8 +20,8 @@ require_once('../autoload.php');
 if(empty($_POST['customer_id'])) die(throwError("ID is Required"));
 if(empty($_POST['username'])) die(throwError("Username is Required"));
 
-$customer_id = $_POST['customer_id'];
-$username = $_POST['username'];
+$customer_id = strip_tags($_POST['customer_id']);
+$username = strip_tags($_POST['username']);
 
 $array = array(
     "customer_id"=>$customer_id,
