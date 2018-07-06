@@ -23,7 +23,7 @@ if(empty($_POST['last_name'])) die(throwError("Last Name is Required"));
 if(empty($_POST['email'])) $email = "";
 if(empty($_POST['mobile_number'])) $mobile_number = "";
 if(empty($_POST['username'])) die(throwError("Username is Required"));
-if(empty($_POST['password'])) die(throwError("Gender is Required"));
+if(empty($_POST['password'])) die(throwError("Password is Required"));
 if(empty($_POST['gender'])) $gender = "";
 
 

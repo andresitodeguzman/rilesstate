@@ -129,13 +129,30 @@ class Session extends AccountUtility {
         // Set props
         $this->session_id = strip_tags($session_id);
         // Prepare Statement
-        $stmt  = $this->mysqli->prepare("UPDATE `session` SET `is_force_expired`=`True` WHERE `session_id`=? LIMIT 1");
+        $stmt  = $this->mysqli->prepare("UPDATE `session` SET `is_force_expired`='True' WHERE `session_id`=? LIMIT 1");
         $stmt->bind_param("s", $this->session_id);
         
         if($stmt->execute()){
             return True;
         } else {
             return False;
+        }
+    }
+
+    final public function isValid(String $session_id){
+        if(empty($session_id)) return "Session ID is Required";
+        $this->session_id = $session_id;
+        $session_info = $this->get($session_id);
+        if(empty($session_info)) return False;
+        if($session_info['is_force`_expired']){
+            return False;
+        } else {
+            if(strtotime($session_info['timestamp']) < strtotime("-30 days")){
+                $this->forceExpire($this->session_id);
+                return False;
+            } else {
+                return True;
+            }
         }
     }
 

@@ -205,7 +205,7 @@ class Customer extends AccountUtility {
         if(empty($array['last_name'])) return "Last Name is Required";
         if(empty($array['username'])) return "Username is Required";
         if(empty($array['password'])) return "Password is Required";
-        if($this->passwordValid($password)){
+        if($this->passwordValid($array['password'])){
             $a = 1;
         } else {
             return "Password Too Short or Too Weak";
