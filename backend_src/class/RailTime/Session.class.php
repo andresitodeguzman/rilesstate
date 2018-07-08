@@ -6,7 +6,7 @@
  * API
  * Class
  * 
- * Station
+ * Session
  */
 
 namespace RailTime;
@@ -141,10 +141,10 @@ class Session extends AccountUtility {
 
     final public function isValid(String $session_id){
         if(empty($session_id)) return "Session ID is Required";
-        $this->session_id = $session_id;
+        $this->session_id = strip_tags($session_id);
         $session_info = $this->get($session_id);
         if(empty($session_info)) return False;
-        if($session_info['is_force`_expired']){
+        if($session_info['is_force_expired']){
             return False;
         } else {
             if(strtotime($session_info['timestamp']) < strtotime("-30 days")){
