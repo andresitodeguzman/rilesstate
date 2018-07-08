@@ -1,5 +1,6 @@
 #CUSTOM GIT IGNORES
 *.temp.php
+vendor
 
 # Logs
 logs
