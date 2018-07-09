@@ -1,4 +1,11 @@
 <?php
+/**
+ * RailTime
+ * 2018
+ * 
+ * chat-server
+ */
+
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
@@ -17,14 +24,22 @@ $mysqli = new mysqli($mysqli_host, $mysqli_username, $mysqli_password, $mysqli_d
 require_once('class/RailTime/AccountUtility.class.php');
 require_once('class/RailTime/Customer.class.php');
 require_once('class/RailTime/Session.class.php');
+require_once('class/RailTime/Chatroom.class.php');
+require_once('class/RailTime/ChatMessage.class.php');
 
+// Composer autoloader
 require_once("vendor/autoload.php");
+
+// Include Chat class
 require_once("wsclass/Chat.class.php");
 
+// Declare the server var
 $server = IoServer::factory(new HttpServer(
     new WsServer(
         new Chat($mysqli)
     )
-),8080);
+),9000);
+
+// Run the server
 $server->run();
 ?>
