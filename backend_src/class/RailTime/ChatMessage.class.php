@@ -11,7 +11,7 @@
 
 namespace RailTime;
 
-class ChatMessage extends AccountUtility{
+final class ChatMessage extends AccountUtility {
 
     // Properties
     private $mysqli;
@@ -203,6 +203,18 @@ class ChatMessage extends AccountUtility{
         if($stmt->execute()) {
             return True;
         }  else {
+            return False;
+        }
+    }
+
+    final public function deleteByChatroomId(Int $chatroom_id){
+        $this->chatroom_id = strip_tags($chatroom_id);
+        $stmt = $this->mysqli->prepare("DELETE FROM `chatmessage` WHERE `chatroom_id`=?");
+        $stmt->bind_param("i",$this->chatroom_id);
+
+        if($stmt->execute()){
+            return True;
+        } else {
             return False;
         }
     }

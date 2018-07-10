@@ -11,7 +11,7 @@
 
 namespace RailTime;
 
-class Customer extends AccountUtility {
+final class Customer extends AccountUtility {
 
     // Properties
     private $mysqli;
@@ -22,6 +22,8 @@ class Customer extends AccountUtility {
     public $last_name = "";
     public $email = "";
     public $mobile_number = "";
+    public $address = "";
+    public $status = "";
     public $username = "";
     public $password = "";
     public $profile_picture = "";
@@ -54,13 +56,13 @@ class Customer extends AccountUtility {
         $this->customer_id = strip_tags($customer_id);
 
         // Prepare Statement
-        $stmt = $this->mysqli->prepare("SELECT `customer_id`,`first_name`,`middle_name`,`last_name`,`email`,`mobile_number`,`username`,`profile_picture`,`gender`,`date_registered`,`dev_share_stats` FROM `customer` WHERE `customer_id`=? LIMIT 1");
+        $stmt = $this->mysqli->prepare("SELECT `customer_id`,`first_name`,`middle_name`,`last_name`,`address`,`status`,`email`,`mobile_number`,`username`,`profile_picture`,`gender`,`date_registered`,`dev_share_stats` FROM `customer` WHERE `customer_id`=? LIMIT 1");
         $stmt->bind_param("i", $this->customer_id);
 
         // Execute query
         $stmt->execute();
         // Bind result        
-        $stmt->bind_result($customer_id, $first_name, $middle_name, $last_name, $email, $mobile_number, $username, $profile_picture, $gender, $date_registered,$dev_share_stats);
+        $stmt->bind_result($customer_id, $first_name, $middle_name, $last_name, $address, $status, $email, $mobile_number, $username, $profile_picture, $gender, $date_registered,$dev_share_stats);
 
         // Create empty arr
         $customer_info = array();
@@ -72,6 +74,8 @@ class Customer extends AccountUtility {
                 "first_name"=>$first_name,
                 "middle_name"=>$middle_name,
                 "last_name"=>$last_name,
+                "address"=>$address,
+                "status"=>$status,
                 "email"=>$email,
                 "mobile_number"=>$mobile_number,
                 "username"=>$username,
@@ -95,13 +99,13 @@ class Customer extends AccountUtility {
         // Set Prop
         $this->username = strip_tags($username);
         // Prepare Statement
-        $stmt = $this->mysqli->prepare("SELECT `customer_id`,`first_name`,`middle_name`,`last_name`,`email`,`mobile_number`,`username`,`profile_picture`,`gender`,`date_registered`,`dev_share_stats` FROM `customer` WHERE `username`=? LIMIT 1");
+        $stmt = $this->mysqli->prepare("SELECT `customer_id`,`first_name`,`middle_name`,`last_name`,`address`,`status`,`email`,`mobile_number`,`username`,`profile_picture`,`gender`,`date_registered`,`dev_share_stats` FROM `customer` WHERE `username`=? LIMIT 1");
         // Bind Parameters
         $stmt->bind_param("s", $this->username);
         // Execute query
         $stmt->execute();
         // Bind result        
-        $stmt->bind_result($customer_id, $first_name, $middle_name, $last_name, $email, $mobile_number, $username, $profile_picture, $gender, $date_registered,$dev_share_stats);
+        $stmt->bind_result($customer_id, $first_name, $middle_name, $last_name, $address, $status, $email, $mobile_number, $username, $profile_picture, $gender, $date_registered,$dev_share_stats);
         // Create empty arr
         $customer_info = array();
         // Fetch data
@@ -111,6 +115,8 @@ class Customer extends AccountUtility {
                 "first_name"=>$first_name,
                 "middle_name"=>$middle_name,
                 "last_name"=>$last_name,
+                "address"=>$address,
+                "status"=>$status,
                 "email"=>$email,
                 "mobile_number"=>$mobile_number,
                 "username"=>$username,
@@ -140,13 +146,13 @@ class Customer extends AccountUtility {
         $query = strip_tags($array['query']);
 
         // Prepare and bind params
-        $stmt = $this->mysqli->prepare('SELECT `customer_id`,`first_name`,`middle_name`,`last_name`,`email`,`mobile_number`,`username`,`profile_picture`,`gender`,`date_registered` FROM `customer` WHERE `?` LIKE "%?%" LIMIT 100');
+        $stmt = $this->mysqli->prepare('SELECT `customer_id`,`first_name`,`middle_name`,`last_name`,`address`,`status`,`email`,`mobile_number`,`username`,`profile_picture`,`gender`,`date_registered` FROM `customer` WHERE `?` LIKE "%?%" LIMIT 100');
         $stmt->bind_param("ss", $category, $query);
 
         // Execute query
         $stmt->execute();
         // Bind result        
-        $stmt->bind_result($customer_id, $first_name, $middle_name, $last_name, $email, $mobile_number, $username, $profile_picture, $gender, $date_registered,$dev_share_stats);
+        $stmt->bind_result($customer_id, $first_name, $middle_name, $last_name, $address, $status, $email, $mobile_number, $username, $profile_picture, $gender, $date_registered,$dev_share_stats);
 
         // Create empty arr
         $customer_info = array();
@@ -158,6 +164,8 @@ class Customer extends AccountUtility {
                 "first_name"=>$first_name,
                 "middle_name"=>$middle_name,
                 "last_name"=>$last_name,
+                "address"=>$address,
+                "status"=>$status,
                 "email"=>$email,
                 "mobile_number"=>$mobile_number,
                 "username"=>$username,
@@ -180,7 +188,7 @@ class Customer extends AccountUtility {
      */
     final public function getAll(){
         // Make query
-        $query = "SELECT `customer_id`,`first_name`,`middle_name`,`last_name`,`email`,`mobile_number`,`username`,`profile_picture`,`gender`,`date_registered,dev_share_stats` FROM `customer` LIMIT 100";
+        $query = "SELECT `customer_id`,`first_name`,`middle_name`,`last_name`,`address`,`status`,`email`,`mobile_number`,`username`,`profile_picture`,`gender`,`date_registered,dev_share_stats` FROM `customer` LIMIT 100";
 
         // Create blank array
         $arr = array();
@@ -194,6 +202,8 @@ class Customer extends AccountUtility {
                     'first_name'=>$cust['first_name'],
                     'middle_name'=>$cust['middle_name'],
                     'last_name'=>$cust['last_name'],
+                    'address'=>$cust['address'],
+                    'status'=>$cust['status'],
                     'email'=>$cust['email'],
                     'mobile_number'=>$cust['mobile_number'],
                     'username'=>$cust['username'],
@@ -229,6 +239,8 @@ class Customer extends AccountUtility {
         $this->first_name = strip_tags($array['first_name']);
         if(!empty($array['middle_name'])) $this->middle_name = strip_tags($array['middle_name']);
         $this->last_name = strip_tags($array['last_name']);
+        if(!empty($array['address'])) $this->address = strip_tags($array['address']);
+        if(!empty($array['status'])) $this->status = strip_tags($array['status']);
         if(!empty($array['email'])) $this->email = strip_tags($array['email']);
         if(!empty($array['mobile_number'])) $this->mobile_number = strip_tags($array['mobile_number']);
         $this->username = strip_tags($array['username']);
@@ -237,8 +249,8 @@ class Customer extends AccountUtility {
         if(!empty($array['dev_share_stats'])) $this->dev_share_stats = strip_tags($array['dev_share_stats']);
 
         // Prepare and bind
-        $stmt = $this->mysqli->prepare("INSERT INTO `customer`(`first_name`,`middle_name`,`last_name`,`email`,`mobile_number`,`username`,`password`,`gender`,`dev_share_stats`) VALUES (?,?,?,?,?,?,?,?,?)");
-        $stmt->bind_param("sssssssss",$this->first_name,$this->middle_name,$this->last_name,$this->email,$this->mobile_number,$this->username,$this->password, $this->gender,$this->dev_share_stats);
+        $stmt = $this->mysqli->prepare("INSERT INTO `customer`(`first_name`,`middle_name`,`last_name`,`address`,`status`,`email`,`mobile_number`,`username`,`password`,`gender`,`dev_share_stats`) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+        $stmt->bind_param("sssssssssss",$this->first_name,$this->middle_name,$this->last_name,$this->address,$this->status,$this->email,$this->mobile_number,$this->username,$this->password, $this->gender,$this->dev_share_stats);
 
         // Execute statement
         if($stmt->execute()){
@@ -314,18 +326,19 @@ class Customer extends AccountUtility {
         $this->first_name = strip_tags($array['first_name']);
         if(!empty($array['middle_name'])) $this->middle_name = strip_tags($array['middle_name']);
         $this->last_name = strip_tags($array['last_name']);
+        if(!empty($array['address'])) $this->address = strip_tags($array['address']);
+        if(!empty($array['status'])) $this->status = strip_tags($array['status']);
         if(!empty($array['email'])) $this->email = strip_tags($array['email']);
         if(!empty($array['mobile_number'])) $this->mobile_number = strip_tags($array['mobile_number']);
         if(!empty($array['gender'])) $this->gender = strip_tags($array['gender']);
         if(!empty($array['dev_share_stats'])) $this->dev_share_stats = strip_tags($array['dev_share_stats']);
 
         // Prepare and bind
-        $stmt = $this->mysqli->prepare("UPDATE `customer` SET `first_name`=?, `middle_name`=?, `last_name`=?, `email`=?, `mobile_number`=?, `gender`=?, `dev_share_stats`=? WHERE `customer_id`=?");
-        $stmt->bind_param("sssssssi",$this->first_name, $this->middle_name, $this->last_name, $this->email, $this->mobile_number,$this->gender,$this->dev_share_stats,$this->customer_id);
+        $stmt = $this->mysqli->prepare("UPDATE `customer` SET `first_name`=?, `middle_name`=?, `last_name`=?, `address`=?, `status`=?, `email`=?, `mobile_number`=?, `gender`=?, `dev_share_stats`=? WHERE `customer_id`=? LIMIT 1");
+        $stmt->bind_param("sssssssssi",$this->first_name, $this->middle_name, $this->last_name, $this->address, $this->status, $this->email, $this->mobile_number,$this->gender,$this->dev_share_stats,$this->customer_id);
 
         if($stmt->execute()){
-            return True;
-             
+            return True;             
         } else {
             return False;
         }
@@ -346,7 +359,7 @@ class Customer extends AccountUtility {
         if($customer_info['username'] == $username) return False;
 
         // Prepare Statement
-        $stmt = $this->mysqli->prepare("UPDATE `customer` SET `username`=? WHERE `customer_id`=?");
+        $stmt = $this->mysqli->prepare("UPDATE `customer` SET `username`=? WHERE `customer_id`=? LIMIT 1");
         // Bind Paramaters
         $stmt->bind_param("si", $this->username, $this->customer_id);
 
@@ -410,6 +423,7 @@ class Customer extends AccountUtility {
             return array("code"=>500,"message"=>"Account does not exist");
         }
     }
+    
 
     /**
      * getPasswordByUsername()

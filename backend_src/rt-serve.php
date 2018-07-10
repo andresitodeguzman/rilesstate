@@ -3,7 +3,7 @@
  * RailTime
  * 2018
  * 
- * chat-server
+ * rt-serve
  */
 
 use Ratchet\Server\IoServer;
@@ -31,12 +31,12 @@ require_once('class/RailTime/ChatMessage.class.php');
 require_once("vendor/autoload.php");
 
 // Include Chat class
-require_once("wsclass/Chat.class.php");
+require_once("rsclass/RealTime.class.php");
 
 // Declare the server var
 $server = IoServer::factory(new HttpServer(
     new WsServer(
-        new Chat($mysqli)
+        new RealTime($mysqli)
     )
 ),9000);
 

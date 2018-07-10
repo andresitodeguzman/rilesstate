@@ -11,7 +11,7 @@
 
 namespace RailTime;
 
-class Session extends AccountUtility {
+final class Session extends AccountUtility {
 
     // Properties
     private $mysqli;
@@ -76,6 +76,41 @@ class Session extends AccountUtility {
         $stmt = $this->mysqli->prepare("SELECT `session_id`,`timestamp`,`customer_id`,`admin_id`,`is_force_expired`,`ip_address` FROM `session` WHERE `customer_id`=? LIMIT 20");
         // Bind param
         $stmt->bind_param("i",$this->customer_id);
+        //Execute
+        $stmt->execute();
+        // Create placeholder array
+        $arr = array();
+        $stmt->bind_result($session_id,$timestamp,$customer_id,$admin_id,$is_force_expired,$ip_address);
+
+        while($stmt->fetch_array()){
+            $data = array(
+                "session_id"=>$session_id,
+                "timestamp"=>$timestamp,
+                "customer_id"=>$customer_id,
+                "admin_id"=>$admin_id,
+                "is_force_expired"=>$is_force_expired,
+                "ip_address"=>$ip_address
+            );
+            $arr[] = $data;
+        }
+
+        return $arr;
+    }
+
+     /**
+     * getByAdminId()
+     * @param: Int $admin_id
+     * @return: Array
+     */
+    final public function getByAdminId(Int $admin_id){
+        // Check for empty param
+        if(empty($customer_id)) return "Admin ID is Required";
+        // Set props
+        $this->admin_id = strip_tags($admin_id);
+        // Prepare statement
+        $stmt = $this->mysqli->prepare("SELECT `session_id`,`timestamp`,`customer_id`,`admin_id`,`is_force_expired`,`ip_address` FROM `session` WHERE `admin_id`=? LIMIT 20");
+        // Bind param
+        $stmt->bind_param("i",$this->admin_id);
         //Execute
         $stmt->execute();
         // Create placeholder array

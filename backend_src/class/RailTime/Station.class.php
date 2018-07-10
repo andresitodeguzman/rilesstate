@@ -11,7 +11,7 @@
 
 namespace RailTime;
 
-class Station {
+final class Station {
 
     // Properties
     private $mysqli;

@@ -6,7 +6,7 @@
  * API
  * Session
  * 
- * isValid
+ * forceExpire
  */
 
 // Secure the API. Always include first.
@@ -21,11 +21,7 @@ if(empty($_POST['session_id'])) die(throwError("Session ID is Required"));
 
 $session_id = strip_tags($_POST['session_id']);
 
-$data = $session->isValid($session_id);
+$data = $session->forceExpire($session_id);
 
-if($data == True){
-    echo json_encode(array("code"=>200,"message"=>$data));
-} else {
-    echo json_encode(array("code"=>200,"message"=>$data));
-}
+echo json_encode($data);
 ?>

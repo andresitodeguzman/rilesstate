@@ -11,7 +11,7 @@
 
 namespace RailTime;
 
-class Chatroom {
+final class Chatroom {
     
     // Properties
     private $mysqli;
