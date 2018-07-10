@@ -139,11 +139,19 @@ class Session extends AccountUtility {
         }
     }
 
+    /**
+     * isValid()
+     * @param: String $session_id
+     * @return: Mixed
+     */
     final public function isValid(String $session_id){
         if(empty($session_id)) return "Session ID is Required";
+        
         $this->session_id = strip_tags($session_id);
+        
         $session_info = $this->get($session_id);
         if(empty($session_info)) return False;
+        
         if($session_info['is_force_expired']){
             return False;
         } else {

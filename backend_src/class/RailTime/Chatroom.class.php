@@ -140,16 +140,19 @@ class Chatroom {
     final public function add(Array $array){
         // Check for empty param
         if(empty($array['name'])) return "Name is Required";
+        
         // Set param
-        $this->name = $array['name'];
-        if(!empty($array['category'])) $this->category = $array['category'];
-        if(!empty($array['tags'])) $this->tags = $array['tags'];
-        if(!empty($array['code'])) $this->code = $array['code'];
-        if(!empty($array['description'])) $this->description = $array['description'];
-        if(!empty($array['image'])) $this->image = $array['image'];
+        $this->name = strip_tags($array['name']);
+        if(!empty($array['category'])) $this->category = strip_tags($array['category']);
+        if(!empty($array['tags'])) $this->tags = strip_tags($array['tags']);
+        if(!empty($array['code'])) $this->code = strip_tags($array['code']);
+        if(!empty($array['description'])) $this->description = strip_tags($array['description']);
+        if(!empty($array['image'])) $this->image = strip_tags($array['image']);
+
         // Prepare statement
         $stmt = $this->mysqli->prepare("INSERT INTO `chatroom`(`name`,`category`,`tags`,`code`,`description`,`image`) VALUES (?,?,?,?,?,?)");
         $stmt->bind_param("ssssss",$this->name,$this->category,$this->tags,$this->code,$this->description,$this->image);
+        
         // Execute Query
         if($stmt->execute()){
             return True;
@@ -167,7 +170,7 @@ class Chatroom {
         // Check for empty param
         if(empty($chatroom_id)) return "Chatroom ID is Required";
         // Set param
-        $this->chatroom_id = $chatroom_id;
+        $this->chatroom_id = strip_tags($chatroom_id);
         // Prepare statement
         $stmt = $this->mysqli->prepare("DELETE FROM `chatroom` WHERE `chatroom_id`=? LIMIT 1");
         // Bind parameter
@@ -189,19 +192,20 @@ class Chatroom {
         // Check for empty param
         if(empty($array['chatroom_id'])) return "Chatroom ID is Required";
         if(empty($array['name'])) return "Name is Required";
+        
         // Set param
-        $this->chatroom_id = $chatroom_id;
-        $this->name = $array['name'];
-        if(!empty($array['category'])) $this->category = $array['category'];
-        if(!empty($array['tags'])) $this->tags = $array['tags'];
-        if(!empty($array['code'])) $this->code = $array['code'];
-        if(!empty($array['description'])) $this->description = $array['description'];
-        if(!empty($array['image'])) $this->image = $array['image'];
+        $this->chatroom_id = strip_tags($chatroom_id);
+        $this->name = strip_tags($array['name']);
+        if(!empty($array['category'])) $this->category = strip_tags($array['category']);
+        if(!empty($array['tags'])) $this->tags = strip_tags($array['tags']);
+        if(!empty($array['code'])) $this->code = strip_tags($array['code']);
+        if(!empty($array['description'])) $this->description = strip_tags($array['description']);
+        if(!empty($array['image'])) $this->image = strip_tags($array['image']);
 
+        // Prepare statements and bind
         $stmt = $this->mysqli->prepare("UPDATE `chatroom` SET `name`=?,`category`=?,`tags`=?,`code`=?,`description`=?,`image`=? WHERE `chatroom_id`=? LIMIT 1");
         $stmt->bind_param("ssssssi",$this->name,$this->category,$this->tags,$this->code,$this->description,$this->image,$this->customer_id);
         
-
         if($stmt->execute()){
             return True;
         } else {
