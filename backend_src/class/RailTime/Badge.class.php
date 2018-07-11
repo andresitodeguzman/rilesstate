@@ -20,7 +20,7 @@ final class Badge {
     public $name;
     public $description;
     public $image;
-
+    
 
     // Methods
     

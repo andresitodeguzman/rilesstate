@@ -17,9 +17,9 @@ require_once('../db.php');
 require_once('../autoload.php');
 
 // Check if parameter exists
-if(empty($_POST['session_id'])) die(throwError("Session ID is Required"));
+if(empty($_POST['this_session_id'])) die(throwError("Session ID is Required"));
 
-$session_id = strip_tags($_POST['session_id']);
+$session_id = strip_tags($_POST['this_session_id']);
 
 $data = $session->forceExpire($session_id);
 

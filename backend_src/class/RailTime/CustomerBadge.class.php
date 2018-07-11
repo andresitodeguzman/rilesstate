@@ -16,6 +16,12 @@ final class CustomerBadge {
     // Properties
     private $mysqli;
 
+    public $customerbadge_id;
+    public $customer_id;
+    public $badge_id;
+    public $notes;
+    public $date_earned;
+
     // Methods
     
     /**

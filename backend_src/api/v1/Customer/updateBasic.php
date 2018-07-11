@@ -35,7 +35,8 @@ if(!empty($_POST['address'])) $address = strip_tags($_POST['address']);
 if(!empty($_POST['status'])) $status = strip_tags($_POST['status']);
 if(!empty($_POST['email'])) $email = strip_tags($_POST['email']);
 if(!empty($_POST['mobile_number'])) $mobile_number = strip_tags($_POST['mobile_number']);
-if(!empty($_POST['gender'])) strip_tags($gender = $_POST['gender']);
+if(!empty($_POST['gender'])) $gender = strip_tags($_POST['gender']);
+if(!empty($_POST['dev_share_stats'])) $dev_share_stats = strip_tags($_POST['dev_share_stats']);
 
 $array = array(
     "customer_id"=>$customer_id,
@@ -46,7 +47,8 @@ $array = array(
     "status"=>$status,
     "email"=>$email,
     "mobile_number"=>$mobile_number,
-    "gender"=>$gender
+    "gender"=>$gender,
+    "dev_share_stats"=>$dev_share_stats
 );
 
 // Call the method

@@ -54,3 +54,30 @@ loginButton.addEventListener("click",()=>{
         }
     }
 });
+
+// Para maging synch
+importScripts("../lib/Station.js");
+
+let __station = new Station();
+
+var getStations = ()=>{
+    
+    var session_id = localStorage.getItem("session_id");
+
+    __station.getAll(session_id)
+        .then((res)=>{
+            localStorage.setItem("railtime_stations",JSON.stringify(res));
+        })
+        .catch((err)=>{
+            console.log("Error getting stations");
+        })
+}
+
+getStations();
+
+var __stations = JSON.parse(localStorage.getItem("railtime_stations"));
+
+//use stations var synchronously
+__stations.forEach(element => {
+    console.log(element);
+});

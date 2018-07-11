@@ -4,7 +4,7 @@
  * 2018
  * 
  * API
- * Customer
+ * admin
  * 
  * add
  */
@@ -20,46 +20,42 @@ require_once('../autoload.php');
 if(empty($_POST['first_name'])) die(throwError("First Name is Required"));
 if(empty($_POST['middle_name'])) $middle_name = "";
 if(empty($_POST['last_name'])) die(throwError("Last Name is Required"));
-if(empty($_POST['address'])) $address = "";
-if(empty($_POST['status'])) $status = "";
+if(empty($_POST['department'])) $department = "";
+if(empty($_POST['position'])) $position = "";
+if(empty($_POST['gender'])) $gender = "";
 if(empty($_POST['email'])) $email = "";
 if(empty($_POST['mobile_number'])) $mobile_number = "";
 if(empty($_POST['username'])) die(throwError("Username is Required"));
 if(empty($_POST['password'])) die(throwError("Password is Required"));
-if(empty($_POST['gender'])) $gender = "";
-if(empty($_POST['dev_share_stats'])) $dev_share_stats = "";
 
 
 // Create a var and sanitize.
 $first_name = strip_tags($_POST['first_name']);
 if(!empty($_POST['middle_name'])) $middle_name = strip_tags($_POST['middle_name']);
 $last_name = strip_tags($_POST['last_name']);
-if(!empty($_POST['address'])) $address = strip_tags($_POST['address']);
-if(!empty($_POST['status'])) $status = strip_tags($_POST['status']);
+if(!empty($_POST['department'])) $department = strip_tags($_POST['department']);
+if(!empty($_POST['position'])) $position = strip_tags($_POST['position']);
+if(!empty($_POST['gender'])) $gender = strip_tags($_POST['gender']);
 if(!empty($_POST['email'])) $email = strip_tags($_POST['email']);
 if(!empty($_POST['mobile_number'])) $mobile_number = strip_tags($_POST['mobile_number']);
 $username = strip_tags($_POST['username']);
 $password = strip_tags($_POST['password']);
-if(!empty($_POST['gender'])) $gender = strip_tags($_POST['gender']);
-if(!empty($_POST['dev_share_stats'])) $dev_share_stats = strip_tags($_POST['dev_share_stats']);
-
 
 $array = array(
     "first_name"=>$first_name,
     "middle_name"=>$middle_name,
     "last_name"=>$last_name,
-    "address"=>$address,
-    "status"=>$status,
+    "department"=>$department,
+    "position"=>$position,
+    "gender"=>$gender,
     "email"=>$email,
     "mobile_number"=>$mobile_number,
     "username"=>$username,
-    "password"=>$password,
-    "gender"=>$gender,
-    "dev_share_stats"=>$dev_share_stats
+    "password"=>$password
 );
 
 // Call the method
-$data = $customer->add($array);
+$data = $admin->add($array);
 
 // Check if data is present or empty
 if($data !== True){
