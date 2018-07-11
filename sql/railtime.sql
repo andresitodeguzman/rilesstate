@@ -47,6 +47,8 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `first_name` varchar(100) DEFAULT NULL,
   `middle_name` varchar(100) DEFAULT NULL,
   `last_name` varchar(100) DEFAULT NULL,
+  `address` varchar(300) DEFAULT NULL,
+  `status` varchar(180) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `mobile_number` varchar(30) DEFAULT NULL,
   `username` varchar(20) DEFAULT NULL,
