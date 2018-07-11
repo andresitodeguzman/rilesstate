@@ -16,6 +16,27 @@
 CREATE DATABASE IF NOT EXISTS `railtime` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `railtime`;
 
+-- Dumping structure for table railtime.admin
+CREATE TABLE IF NOT EXISTS `admin` (
+  `admin_id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(100) DEFAULT NULL,
+  `middle_name` varchar(100) DEFAULT NULL,
+  `last_name` varchar(100) DEFAULT NULL,
+  `address` varchar(300) DEFAULT NULL,
+  `status` varchar(180) DEFAULT NULL,
+  `department` varchar(100) DEFAULT NULL,
+  `position` varchar(100) DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `mobile_number` varchar(30) DEFAULT NULL,
+  `profile_picture` varchar(300) DEFAULT NULL,
+  `username` varchar(20) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `date_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`admin_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
 -- Dumping structure for table railtime.chatmessage
 CREATE TABLE IF NOT EXISTS `chatmessage` (
   `message_id` varchar(200) NOT NULL,
