@@ -1,0 +1,44 @@
+/* SLIDE LEFT */
+    
+.slideleft-enter-active, .slideleft-leave-active
+    transition: transform .4s
+
+.slideleft-enter, .slideleft-leave-to
+    transform: translateX(100%)
+    will-change: transform
+
+
+/* SLIDE UP */
+    
+.slideup-enter-active, .slideup-leave-active
+    transition: transform .3s
+    will-change: transform
+
+.slideup-enter, .slideup-leave-to
+    transform: translateY(100%)
+    will-change: transform
+
+/* FADE */
+.fade-enter-active, .fade-leave-active
+    transition: opacity .3s
+.fade-enter, .fade-leave-to
+    opacity: 0
+
+.wipeup-enter-active, .wipeup-leave-active,
+    transition: transform 0.5s 0.1s, opacity 0.5s 0.1s
+    will-change: transform, opacity
+
+.wipeup2-enter-active, .wipeup2-leave-active,
+    transition: transform 0.5s 0.2s, opacity 0.5s 0.2s
+    will-change: transform, opacity
+
+.wipeup-enter,.wipeup2-enter
+    transform: translateY(100%)
+    opacity: 0
+    will-change: transform, opacity
+
+.wipeup-leave-to,.wipeup2-leave-to
+    transform: translateY(-100%)
+    opacity: 0
+    will-change: transform, opacity
+

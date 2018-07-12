@@ -1,275 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- HEAD -->
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <!-- Title -->
+    
+    <!-- Set Title -->
     <title>Railtime</title>
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Fonts and Icons -->
+    <!-- Load Styles -->
     <link rel="stylesheet" href="dependencies/fonts/linear-icons.css">
     <link rel="stylesheet" href="dependencies/fonts/hk-grotesk.css">
+    <link rel="stylesheet" href="styles/style.css">
 
 </head>
 
-<!-- BODY -->
-
 <body>
 
-    <!-- Parent Activity (Root)-->
-    <activity id=parent>
+    <!-- Once upon a time, our page started to load.-->
+    <!-- This is a preloader -->
+    <div id="preloader-container">
+    <transition name="wipeup">
+        <div id="preloader" class="accent fixed wide high flex center" style="z-index: 10" v-if="loading">
+            <div class="lnr lnr-train xxlarge-text"></div>
+        </div>
+    </transition>
+    </div>
 
-        <!-- Onboarding-->
-        <activity id="onboarding">
 
-            <onboarding>
-                <slide title="Stuff" body="The programming language used by millions of websites for their server-side processing needs."></slide>
-                <slide title="Things" body="Visual Studio Code is a free source code editor that provides IDE-like features"></slide>
-                <slide title="Everything" body="Vue.js is an open-source progressive JavaScript framework for building powerful Single Page Applications"></slide>
-            </onboarding>
-        </activity>
 
-        <!-- Register/Login -->
-        <activity id="login">
+    <!-- And yas, here's the app -->
+
+
+
+
+
+    <div id="app">
+        
+        <!-- Three-pane Onboarding -->
+        <onboarding></onboarding>
+
+        <!-- Login/Register Activity-->
+        <activity id="login" direction="slideleft">
+            
             <login></login>
-        </activity>
 
-        <!-- Success -->
-        <activity id="success" class="flex justify-center align-center column">
-            <span class="lnr lnr-checkmark-circle margin padding accent-text" style="font-size: 3rem"></span>
-            You have registered successfully!
-            <button class="margin padding padding-x-large border-radius-large accent dark-accent-text bold" @click="push('#home')">Launch App</button>
         </activity>
-
 
         <!-- HOME -->
-        <activity id="home" class="bg-gray">
+        <activity id="home" direction="slideleft">
+            <home></home>
+        </activity>
 
-            <!-- bottom menu toggle-->
-            <input type="checkbox" id="bottom-menu-collapse" style="display: none;">
-            <!-- action collapse toggle -->
-            <input type="checkbox" id="action-collapse" style="display: none;">
+        <activity id="ride" direction="slideleft">
+            <ride></ride>
+        </activity>
 
-
-            <!-- CARD CONTAINER -->
-            <div id="card-container" style="height: calc(100% - 8rem); position: absolute; top: 4rem; overflow-y: scroll">
-                <card v-for="(card,index) in cards" v-bind:index="index" v-bind:type="card.type"></card>
-            </div>
-
-            <!-- Header Accent-->
-            <span class="accent wide fixed" style="height:3rem; top:0; border-radius: 0 0 20% 20%"></span>
+        <!-- COMMUNITY -->
+        <activity id="community" direction="slideleft">
             
-
-
-            <!-- Bottom Action Bar -->
-            <div id="bottom-action-bar" class="white flex wide fixed space-between shadow-up align-center">
-                <!-- left-menu-->
-                <span class="left-menu">
-                    <label for="bottom-menu-collapse">
-                        <span class="lnr lnr-menu"></span>
-                    </label>
-                </span>
-                <!-- Call to Action -->
-                <span class="action">
-                    <label for="action-collapse">
-                    <span class="button">
-                        <span class="lnr lnr-train"></span>
-                        <span>Ride a Train</span>
-                    </span>
-                </label>
-                </span>
-
-                <!-- right-menu-->
-                <span class="left-menu" @click="screens.push('#community')">
-                        <span class="lnr lnr-users"></span>
-                    </span>
-                
-            </div>
-
-            <assistant></assistant>
-            
-            <!-- Bottom Dim-->            
-            <div class="dim" id="forBottomDrawer" @click="uncheck()"></div>
-
-            <!-- Bottom Drawer -->
-            <div class="bottom-drawer">
-                    <div class="profile">
-                        <img src="custom/img.jpg">
-                        <span>
-                            <div class="name">{{account.name}}</div>
-                            <span class="email">{{account.email}}</span>
-                        </span>
-                        <span class="settings">
-                            <span class="lnr lnr-cog"></span>
-                        </span>
-                    </div>
-            
-                    <span class="menu-item" @click="uncheck(); screens.push('#manageCards')">Manage Cards</span>
-                    <span class="menu-item">LRT-1 Map</span>
-                    <span class="menu-item">Shop and Dine</span>
-                    <span class="menu-item">Exclusive Deals</span>
-                    <span class="menu-item">Help</span>
-                    <span class="menu-item">About</span>
-                    
-                </div>
-            
-            
-             <!-- Action Pane -->
-             <div class="dim" id="forActionPane"  @click="uncheck()"></div>
-            <div class="action-pane">
-                    <!-- Travel selectors (left) -->
-                    <span class="travel-selection">
-                        <span>
-                            <span class="lnr lnr-chevron-down"></span>
-                            <select>
-                                <option>EDSA</option>
-                            </select>
-                            <label>From Station</label>
-                        </span>
-                        <br>
-                        <hr style="width: 100%" color="#eeeeee" size=1>
-                        <span>
-                            <span class="lnr lnr-chevron-down"></span>
-                            <select>
-                                <option>United Nations</option>
-                            </select>
-                            <label>To Station</label>
-                        </span>
-                    </span>
-                    <!-- Travel button (right) -->
-                    
-                        <label for="action-collapse"  @click="screens.push('#ride')" class="travelbtn-container">
-                        
-                            <span class="lnr lnr-arrow-right"></span>
-                        
-                        </label>
-                    
-                </div>
-
+            <community></community>
 
         </activity>
 
-        <!--Manage Cards-->
-        <activity id="manageCards" style="overflow-y: scroll">
-
-            <!-- Accent -->
-            <span class="accent wide fixed" style="z-index:-1; height:6rem; top:0;"></span>
-            <br>
-
-            <!-- Action bar -->
-            <div class="flex justify-center space-between padding-x-large" style="width: 100%; padding-top: 0.5rem">
-                <button class="dark-accent-text"  style="background-color: transparent; border: 0; font-size: 1rem; font-weight: bold;" @click="pop()"><span class="lnr lnr-chevron-left" style="font-weight: bold; padding-right: 0.5rem" ></span>Back</button>
-                <button class="dark-accent-text"  style="background-color: transparent; border: 0; font-size: 1rem; font-weight: bold;" @click="cards.push({type:'weather'})"><span class="lnr lnr-plus-circle padding-small" style="font-weight: bold"></span>Add a Card</button>
-            </div>
-
-            <!-- Card Container -->
-            <div class="flex column justify-center padding" style="width: 100%">                    
-                <card v-for="(card,index) in cards" v-bind:index="index" v-bind:type="card.type">
-                    <div style="color: #888888; text-align: right; position: relative; top: 1rem; right: 0.5rem;">
-                            <span class="lnr lnr-chevron-up padding-small"></span>
-                        <span class="lnr lnr-chevron-down padding-small"></span>
-                        <span class="lnr lnr-cog padding-small"></span>
-                        <span class="lnr lnr-trash padding-small" @click="removeIndex(index)"></span>
-                    </div>
-                </card>            
-            </div>
+        <!-- CHATROOM -->
+        <activity id="chatroom" direction="slideleft">
+                <chatroom></chatroom>
         </activity>
 
-        <!-- Ride -->
-        <activity id="ride">
-            <ride-panel></ride-panel>
+        <!-- FORUM CATEGORY -->
+        <activity id="forumcategory" direction="slideleft">
+                <forumcategory></forumcategory>
         </activity>
 
-        <!-- Community -->
-        <activity id="community">
-            <!-- Header accent -->
-    <div class="header-accent">
-            <span class="header-content">
-                <label for="community-reveal">
-                <span class="lnr lnr-chevron-left" @click="pop()"></span></label>
-                <span>Chatrooms</span>
-                <span class="lnr lnr-magnifier"></span>
-            </span>
-        </div>
-    
-        <!-- Category Tabs -->
-        <div class="tabs">
-            <span class="active">
-                <span class="lnr lnr-bubble"></span>
-                Chatrooms</span>
-            <span>
-                <span class="lnr lnr-home"></span>
-                Feed</span>
-            <span>
-                <span class="lnr lnr-user"></span>
-                My Profile</span>
-        </div>
-    
-        <!-- List Items -->
-        <div class="list-item">
-            <span>
-                <img src="custom/img.jpg">
-                <span class="online"></span>
-            </span>
-                
-            <span>
-                <div class="name">Public Chatroom</div>
-                <span class="last">last message here</span>
-            </span>
-            <span class="enter">
-                <span class="lnr lnr-enter"></span>
-            </span>
-    
-        </div>
-        <div class="list-item">
-                <span>
-                    <img src="custom/img.jpg">
-                    <span class="online"></span>
-                </span>
-                    
-                <span>
-                    <div class="name">General Talk</div>
-                    <span class="last">previous message</span>
-                </span>
-                <span class="enter">
-                    <span class="lnr lnr-enter"></span>
-                </span>
+        <!-- FORUM-->
+        <activity id="forum" direction="slideleft">
+                <forum></forum>
+        </activity>
+
+        <!-- PROFILE -->
+        <activity id="profile" direction="slideleft">
+                <profile></profile>
+        </activity>
+
         
-            </div>
-            <div class="list-item">
-                    <span>
-                        <img src="custom/img.jpg">
-                        <span class="online"></span>
-                    </span>
-                        
-                    <span>
-                        <div class="name">Misery and Hatred</div>
-                        <span class="last">old chat</span>
-                    </span>
-                    <span class="enter">
-                        <span class="lnr lnr-enter"></span>
-                    </span>
-            
-                </div>
+        
     </div>
-        </activity>
+    
 
 
-    </activity>
 
 
-    <!-- SCRIPT -->
-    <script src="dependencies/vue.js"></script>
-    <script src="script.js"></script>
+    <!-- Tadaa, that's it! -->
+
+    <!-- Load Scripts -->
+    <script src="dependencies/scripts/vue.js"></script>
+    <script src="app.js" type="module"></script>
+    <script>
+        
+        // // Hide Preloader
+        // window.addEventListener('load',function(){
+        //     document.querySelector('#preloader').style.display = "none"
+        // })
+
+
+    </script>
+
+
+    <!-- Next, load the below-the-fold data -->
+    
+
+
+
 
 </body>
-
 </html>
