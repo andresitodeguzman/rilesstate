@@ -18,19 +18,19 @@ require_once('../autoload.php');
 
 // Checks if all the required data has been sent
 if(empty($_POST['customer_id'])) die(throwError("ID is Required"));
-if(empty($_POST['first_name'])) die(throwError("First Name is Required"));
-if(empty($_POST['middle_name'])) $middle_name = "";
-if(empty($_POST['last_name'])) die(throwError("Last Name is Required"));
-if(empty($_POST['address'])) $address = "";
-if(empty($_POST['status'])) $status = "";
-if(empty($_POST['email'])) $email = "";
-if(empty($_POST['mobile_number'])) $mobile_number = "";
-if(empty($_POST['gender'])) $gender = "";
+$first_name = "";
+$middle_name = "";
+$last_name = "";
+$address = "";
+$status = "";
+$email = "";
+$mobile_number = "";
+$gender = "";
 
 $customer_id = strip_tags($_POST['customer_id']);
-$first_name = strip_tags($_POST['first_name']);
+if(!empty($_POST['first_name'])) $first_name = strip_tags($_POST['first_name']);
 if(!empty($_POST['middle_name'])) $middle_name = strip_tags($_POST['middle_name']);
-$last_name = strip_tags($_POST['last_name']);
+if(!empty($_POST['last_name'])) $last_name = strip_tags($_POST['last_name']);
 if(!empty($_POST['address'])) $address = strip_tags($_POST['address']);
 if(!empty($_POST['status'])) $status = strip_tags($_POST['status']);
 if(!empty($_POST['email'])) $email = strip_tags($_POST['email']);

@@ -228,8 +228,6 @@ final class Customer extends AccountUtility {
     final public function add(Array $array){
         
         // Check for empty fields
-        if(empty($array['first_name'])) return "First Name is Required";
-        if(empty($array['last_name'])) return "Last Name is Required";
         if(empty($array['username'])) return "Username is Required";
         if(empty($array['password'])) return "Password is Required";
         if(!$this->passwordValid($array['password'])) return "Password Too Short or Too Weak";
@@ -319,8 +317,6 @@ final class Customer extends AccountUtility {
 
         // Check for empty fields
         if(empty($customer_info)) return "Customer does not exist";
-        if(empty($array['first_name'])) return "First Name is Required";
-        if(empty($array['last_name'])) return "Last Name is Required";
 
         // Set props
         $this->first_name = strip_tags($array['first_name']);
