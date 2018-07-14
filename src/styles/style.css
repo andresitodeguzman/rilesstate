@@ -1,5 +1,7 @@
 html, body, *, *::before, *::after {
   margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 * {
@@ -226,8 +228,8 @@ a {
 }
 
 .shadow-up {
-  -webkit-box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.1);
-          box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .shadow-more {
@@ -390,6 +392,41 @@ a {
 .small-detail {
   font-size: 0.8rem;
   line-height: 0;
+}
+
+/* Station Information */
+#stationinformation .congestion {
+  color: #444444;
+  line-height: 1.4rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#stationinformation .congestion .indicator {
+  margin: 1rem;
+}
+
+#stationinformation .congestion .text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#stationinformation .congestion .text .direction {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+#stationinformation .congestion .text .status {
+  color: gray;
 }
 
 /* Announcement */
@@ -600,7 +637,7 @@ a {
   }
 }
 
-#survey-div button {
+#survey button {
   background-color: transparent;
   padding: 0.5rem 1.5rem;
   border-radius: 2rem;
@@ -608,8 +645,8 @@ a {
   margin-right: 0.5rem;
 }
 
-#survey-div button:active {
-  background-color: #aaaaaa;
+#survey button:active {
+  background-color: #aaaaaa !important;
 }
 
 /* SEEKBAR */
@@ -781,6 +818,7 @@ progress[value]::-webkit-progress-value {
   color: black;
 }
 
+/* Community */
 /* Experimental */
 ::-webkit-scrollbar {
   display: none;
@@ -889,9 +927,16 @@ progress[value]::-webkit-progress-value {
 }
 
 .wipeup-leave-to, .wipeup2-leave-to {
-  -webkit-transform: translateY(-100%);
-          transform: translateY(-100%);
+  -webkit-transform: translateY(-20%);
+          transform: translateY(-20%);
   opacity: 0;
   will-change: transform, opacity;
+}
+
+.wipeup-move, .wipeup2-move {
+  -webkit-transition: -webkit-transform 1s;
+  transition: -webkit-transform 1s;
+  transition: transform 1s;
+  transition: transform 1s, -webkit-transform 1s;
 }
 /*# sourceMappingURL=style.css.map */

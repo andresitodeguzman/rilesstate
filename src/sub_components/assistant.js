@@ -5,7 +5,7 @@ export default {
         return {
             store: this.$root.store,
             focused: false,
-            suggestions: [''],
+            suggestions: ['Nearby Dining Spots', 'Nearby Shopping Spots', 'Nearby Leisure and Entertainment Spots'],
             stations: this.$root.store.static.stations,
             query: ""
             
@@ -33,16 +33,16 @@ export default {
         </div>
         
         <!-- Suggestions -->
-        <div class="fixed margin" style="width: calc(100% - 2rem);overflow: hidden; border-radius: 1rem; top: 5rem; z-index: 1">
+        <div v-show="focused" class="fixed margin" style="width: calc(100% - 2rem);overflow: hidden; border-radius: 1rem; top: 5rem; z-index: 1">
             <!-- Built in suggestion list-->
-            <div class="padding-x-large white padding flex"  v-for="item in suggestions" v-if="item.includes(' '+lowercased_query) && lowercased_query.length > 1 || item.startsWith(lowercased_query) && lowercased_query.length > 0"><span class="lnr lnr-train" style="vertical-align: middle; margin-right: 1rem"></span>{{item}}</div>
+            <div class="padding-x-large white padding flex"  v-for="item in suggestions" v-if="item.toLowerCase().includes(' '+lowercased_query) && lowercased_query.length > 1 || item.toLowerCase().startsWith(lowercased_query) && lowercased_query.length > 1"><span class="lnr lnr-map-marker" style="vertical-align: middle; margin-right: 1rem"></span>{{item}}</div>
           
             <!-- Station Info-->
             <div class="padding-x-large white padding flex" v-for="item in stations"  v-if="item.name.toLowerCase().includes(' '+lowercased_query) && lowercased_query.length > 1 || item.name.toLowerCase().startsWith(lowercased_query) && lowercased_query.length > 0"><span class="lnr lnr-train" style="vertical-align: middle; margin-right: 1rem"></span>{{item.name}} Station Info</div>
             <div class="padding-x-large white padding flex" v-for="item in stations"  v-if="item.name.toLowerCase().includes(' '+lowercased_query) && lowercased_query.length > 2 || item.name.toLowerCase().startsWith(lowercased_query) && lowercased_query.length > 2"><span class="lnr lnr-map-marker" style="vertical-align: middle; margin-right: 1rem"></span>Places near {{item.name}}</div>
 
             <!-- Google Maps query-->
-            <div class="padding-x-large white padding flex" v-show="query.length > 0"><span class="lnr lnr-map" style="vertical-align: middle; margin-right: 1rem"></span><span>Search for <b>{{query}}</b> in Google Maps</span></div>        
+            <a style="color:black" v-bind:href="'https://www.google.com/maps/search/' + query.replace(' ','+')"class="padding-x-large white padding flex" v-show="query.length > 0"><span class="lnr lnr-map" style="vertical-align: middle; margin-right: 1rem"></span><span>Search for <b>{{query}}</b> in Google Maps</span></a>        
         </div>
 
     </div>

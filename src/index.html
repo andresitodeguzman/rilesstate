@@ -18,6 +18,7 @@
 <body>
 
     <!-- Once upon a time, our page started to load.-->
+    
     <!-- This is a preloader -->
     <div id="preloader-container">
     <transition name="wipeup">
@@ -30,11 +31,6 @@
 
 
     <!-- And yas, here's the app -->
-
-
-
-
-
     <div id="app">
         
         <!-- Three-pane Onboarding -->
@@ -52,6 +48,17 @@
             <home></home>
         </activity>
 
+        <!-- MANAGE CARDS -->
+        <activity id="managecards" direction="slideleft">
+            <managecards></managecards>
+        </activity>
+
+        <!-- CARD SETTINGS -->
+        <activity id="cardsettings" direction="slideleft">
+            <home></home>
+        </activity>
+
+        <!-- RIDE-->
         <activity id="ride" direction="slideleft">
             <ride></ride>
         </activity>
@@ -83,6 +90,9 @@
                 <profile></profile>
         </activity>
 
+        <activity id="leaderboard">
+            <leaderboard></leaderboard>
+        </activity>
         
         
     </div>
@@ -93,25 +103,39 @@
 
     <!-- Tadaa, that's it! -->
 
-    <!-- Load Scripts -->
+
+
+    <!-- Load Scripts (FRONT END) -->
+    <script src="dependencies/scripts/jquery-ajax.js"></script>
+
     <script src="dependencies/scripts/vue.js"></script>
     <script src="app.js" type="module"></script>
-    <script>
-        
-        // // Hide Preloader
-        // window.addEventListener('load',function(){
-        //     document.querySelector('#preloader').style.display = "none"
-        // })
 
-
-    </script>
-
-
-    <!-- Next, load the below-the-fold data -->
     
-
-
-
+    
+    
+    
+    
 
 </body>
 </html>
+
+
+
+<!-- Simplified app structure: INDEX.HTML-->
+<!-- <html>
+
+    <activity id="home">    // imagine <activity> as a full width and height white container.
+        <home></home>       // then <home> contains the layout
+    </activity>
+
+    <activity id="profile">     /*  the id="profile" is an identifier to toggle which activities should be
+        <profile></profile>         shown on a particular situation /*
+    </activity>
+
+
+    <script>
+        // Scripts are loaded here
+    </script>
+
+</html> -->

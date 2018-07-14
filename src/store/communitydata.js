@@ -91,14 +91,17 @@ export default {
     leaderboard:{
         users:[
             {
+                name: 'User1',
                 userid: 1,
                 points: 10
             },
             {
+                name: 'User2',
                 userid: 2,
                 points: 5
             },
             {
+                name: 'User3',
                 userid: 3,
                 points: 4
             },
