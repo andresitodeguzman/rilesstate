@@ -9,8 +9,6 @@ export default {
             if('geolocation' in navigator){
                 var successPosition = (pos)=>{
                     
-                    alert("loaded: " + pos.coords.latitude);
-                    this.loaded = true
                     this.latitude = pos.coords.latitude
                     this.longitude = pos.coords.longitude
                     this.speed = pos.coords.speed
@@ -40,7 +38,7 @@ export default {
                 latitude: 0,
                 longitude: 0,
                 speed: "NOT_AVAILABLE",
-                loaded: false,
+
                 
                 
                 
@@ -54,6 +52,8 @@ export default {
                 subtitle: "Please wait while we update your location...",
                 survey: false,
 
+                // Survey answer
+                answer: ''
 
             }
         },
@@ -61,7 +61,6 @@ export default {
             located: function(){
                 if(this.located){
                     this.update("Great!","Your location has been updated")
-                    setTimeout(() => this.isHidden = false, 500);
                 }
             },
             movingstate: function(){
@@ -120,15 +119,17 @@ export default {
                 return (this.latitude !=0 && this.longitude !=0 )
             },
             current_station: function(){
-                if(this.current<0)
-                    return "Error reading current station"
+                if(this.located){
                 return this.static.stations[this.current].name
+                }
             },
             next_station: function(){
+                if(this.located){
                 if(this.direction == 'Northbound')
                     return this.static.stations[this.current + 1].name
                 else if(this.direction == 'Southbound')
                     return this.static.stations[this.current - 1].name
+                }
             },
             direction: function(){
 
@@ -145,10 +146,12 @@ export default {
                 return new LocationHelper().describeSpeed()
             },
             seeker: function(){
+                if(this.located){
                 if(this.direction == 'Northbound')
                     return (this.current - this.from) / (this.data.to - this.data.from)
                 else if(this.direction == 'Southbound')
                     return (this.data.from - this.current / this.data.from - this.data.to)
+                }
             }
         },
         methods:{
@@ -187,7 +190,7 @@ export default {
             <!-- LOCATION LOADER -->
 
             <transition name="wipeup" appear>
-                <div class="wide margin-large-y high flex justify-center align-center center text-align-center" style="box-sizing:border-box; position: relative" v-if="latitude == 0 || longitude == 0">
+                <div class="wide margin-large-y high flex justify-center align-center center text-align-center" style="box-sizing:border-box; position: relative" v-if="located">
                     
                         <span class="lnr lnr-map-marker large-text" style="position:relative" >
                         <div id="initial-loader">     
@@ -200,7 +203,7 @@ export default {
             <!-- GRAPHIC GUIDES -->
 
             <transition name="wipeup2" appear mode="out-in">
-            <div style="width: 70%; min-height: 10rem; line-height: 0; margin-bottom: 3rem" class="flex space-between" v-if="loaded">
+            <div style="width: 70%; min-height: 10rem; line-height: 0; margin-bottom: 3rem" class="flex space-between" v-if="located">
                 <div class="flex column white space-around">
                     
                     <span class="lnr lnr-clock light-gray-text" style="font-size: 4rem"></span>
@@ -221,21 +224,21 @@ export default {
             <!-- SEEKER-->
 
             <transition name="wipeup2">
-            <div style="width: 80%" v-if="loaded">
+            <div style="width: 80%" v-if="located">
                 <seeker v-bind:value="(current-data.from) / (data.to-data.from)"></seeker>
             </div>
             </transition>
 
             <!-- Arrow down -->
             <transition name="slideup">
-                <div  v-if="loaded" style="transform: scaleX(2); color: #aaaaaa" class="margin-large-y"><span class="lnr lnr-chevron-down"></span></div>
+                <div  v-if="located" style="transform: scaleX(2); color: #aaaaaa" class="margin-large-y"><span class="lnr lnr-chevron-down"></span></div>
             </transition>
 
             
 
             <!-- Tracking -->
             <transition name="slideleft">
-            <tracking class="margin-large-y" v-if="loaded" v-bind:from="data.from" v-bind:to="data.to" v-bind:current="current"></tracking>
+            <tracking class="margin-large-y" v-if="located" v-bind:from="data.from" v-bind:to="data.to" v-bind:current="current"></tracking>
             </transition>
 
             </div>
@@ -250,6 +253,7 @@ export default {
                 </button>
             </div>
 
+            <!--
             <div class="absolute bottom white wide flex" id="chatinput" style="z-index: 2; max-height: 3.5rem; opacity: 0.1">
                 <button @click="location.lat = 100; location.long = 200;">Set Location</button>
                 <button @click="current = data.from">Set current location</button>
@@ -257,6 +261,27 @@ export default {
                 <button @click="current++">Next</button>
                 <button @click="movingstate='stop'">Stop</button>
                 <button @click="survey = !survey">Survey</button>
+            </div>
+            -->
+
+            <div id="survey" class="padding-large shadow-up white fixed bottom wide" style="border-radius: 1rem 1rem 0 0">
+
+                <transition name="wipeup2" appear>
+                <span v-if="answer==''">
+                <h1 style="padding: 1rem 0 !important">Was it too crowded in the previous station?</h1>
+                <button @click="answer='Yes'">Yes</button>
+                <button @click="answer='No'">No</button>
+                </span>
+                </transition>
+
+                <transition name="wipeup2" appear>
+                <span v-if="answer!=''">
+                <h1 style="padding: 1rem 0 !important">Thanks for your response.</h1>
+                <span>You earned +5 points and +5 coins!</span>
+                </span>
+                </transition>
+                
+
             </div>
 
         </div>

@@ -160,34 +160,34 @@ export default {
             ],
 
             // Screens
-            screens : [],
-            screen_data: [],
+            screens : ['ride'],
+            screen_data: [{to:5, from:0}],
             
 
         },
 
         static:{
             stations: [
-                {   id: 1, name: "Baclaran",   address: "Pasay City", latitude:14.6576072,longitude:121.0187903},
-                {   id: 2, name: "Edsa",   address: "Pasay City",   latitude:14.6575508,longitude:121.0190023},
-                {   id: 3, name: "Libertad",   address: "Pasay City", latitude:14.6543722,longitude:120.9817053},
-                {   id: 4, name: "Gil Puyat",   address: "Makati City", latitude:14.6444202,longitude:120.9813945},
-                {   id: 5, name: "Vito Cruz",   address: "Pasay City", latitude:14.636055,longitude:120.9801084},
-                {   id: 6, name: "Quirino",   address: "Pasay City",  latitude:14.63088263,longitude:120.9790571},
-                {   id: 7, name: "Pedro Gil",   address: "Pasay City", latitude:14.6226405,longitude:120.9807027},
-                {   id: 8, name: "United Nations",   address: "Pasay City" , latitude:14.6167419,longitude:120.980544},
-                {   id: 9, name: "Central Terminal",   address: "Pasay City" , latitude:14.6082169,longitude:120.9778718},    
-                {   id: 10, name: "Carriedo",   address: "Pasay City" ,latitude:14.6054454,longitude:120.9798723},
-                {   id: 11, name: "Doroteo Jose",   address: "Pasay City" ,latitude:14.5997464,longitude:120.9792228},
-                {   id: 12, name: "Bambang",   address: "Pasay City" ,latitude:14.5927811,longitude:120.9794726},
-                {   id: 13, name: "Tayuman",   address: "Pasay City"  ,latitude:14.5825552,longitude:120.9824323},
-                {   id: 14, name: "Blumentritt",   address: "Pasay City"  ,latitude:14.5770233,longitude:120.9872367},
-                {   id: 15, name: "Abad Santos",   address: "Pasay City"  ,latitude:14.5702241,longitude:120.9894316},
-                {   id: 16, name: "R. Papa",   address: "Pasay City" ,latitude:14.5633042,longitude:120.9926264},
-                {   id: 17, name: "5th Avenue",   address: "Pasay City" , latitude:14.5541678,longitude:120.9949784},
-                {   id: 18, name: "Yamaha Monumento",   address: "Pasay City",latitude:14.5476681,longitude:120.9964217},
-                {   id: 19, name: "Balintawak",   address: "Pasay City" ,latitude:14.538408,longitude:121.0003645},
-                {   id: 20, name: "Roosevelt",   address: "Pasay City" ,latitude:14.5342911,longitude:120.9961528}
+                {   id: 0, name: "Baclaran",   address: "Pasay City", latitude:14.6576072,longitude:121.0187903},
+                {   id: 1, name: "Edsa",   address: "Pasay City",   latitude:14.6575508,longitude:121.0190023},
+                {   id: 2, name: "Libertad",   address: "Pasay City", latitude:14.6543722,longitude:120.9817053},
+                {   id: 3, name: "Gil Puyat",   address: "Makati City", latitude:14.6444202,longitude:120.9813945},
+                {   id: 4, name: "Vito Cruz",   address: "Pasay City", latitude:14.636055,longitude:120.9801084},
+                {   id: 5, name: "Quirino",   address: "Pasay City",  latitude:14.63088263,longitude:120.9790571},
+                {   id: 6, name: "Pedro Gil",   address: "Pasay City", latitude:14.6226405,longitude:120.9807027},
+                {   id: 7, name: "United Nations",   address: "Pasay City" , latitude:14.6167419,longitude:120.980544},
+                {   id: 8, name: "Central Terminal",   address: "Pasay City" , latitude:14.6082169,longitude:120.9778718},    
+                {   id: 9, name: "Carriedo",   address: "Pasay City" ,latitude:14.6054454,longitude:120.9798723},
+                {   id: 10, name: "Doroteo Jose",   address: "Pasay City" ,latitude:14.5997464,longitude:120.9792228},
+                {   id: 11, name: "Bambang",   address: "Pasay City" ,latitude:14.5927811,longitude:120.9794726},
+                {   id: 12, name: "Tayuman",   address: "Pasay City"  ,latitude:14.5825552,longitude:120.9824323},
+                {   id: 13, name: "Blumentritt",   address: "Pasay City"  ,latitude:14.5770233,longitude:120.9872367},
+                {   id: 14, name: "Abad Santos",   address: "Pasay City"  ,latitude:14.5702241,longitude:120.9894316},
+                {   id: 15, name: "R. Papa",   address: "Pasay City" ,latitude:14.5633042,longitude:120.9926264},
+                {   id: 16, name: "5th Avenue",   address: "Pasay City" , latitude:14.5541678,longitude:120.9949784},
+                {   id: 17, name: "Yamaha Monumento",   address: "Pasay City",latitude:14.5476681,longitude:120.9964217},
+                {   id: 18, name: "Balintawak",   address: "Pasay City" ,latitude:14.538408,longitude:121.0003645},
+                {   id: 19, name: "Roosevelt",   address: "Pasay City" ,latitude:14.5342911,longitude:120.9961528}
             ]
         },
 

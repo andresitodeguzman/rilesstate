@@ -637,7 +637,7 @@ a {
   }
 }
 
-#survey-div button {
+#survey button {
   background-color: transparent;
   padding: 0.5rem 1.5rem;
   border-radius: 2rem;
@@ -645,8 +645,8 @@ a {
   margin-right: 0.5rem;
 }
 
-#survey-div button:active {
-  background-color: #aaaaaa;
+#survey button:active {
+  background-color: #aaaaaa !important;
 }
 
 /* SEEKBAR */
