@@ -10,7 +10,7 @@ export default {
             url: "api/v1/Customer/add.php",
             cache: 'false',
             success: result => {
-                alert("SIGNUP SUCCESS")
+                
                 this.verifylogin(array)
             
         }}).fail((err)=>{
@@ -31,7 +31,7 @@ export default {
             success: result => {
 
                 localStorage.setItem('customer', JSON.stringify(result.customer))
-                alert("LOGIN SUCCESS")
+                
                 Store.store.navigatepath('home')
                 
             
@@ -40,6 +40,10 @@ export default {
         });
 
     },
+    
+    
+
+    
     
 
 

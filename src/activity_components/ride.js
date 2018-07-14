@@ -4,6 +4,7 @@ export default {
     
     name: 'Ride',
         created(){
+            
             this.latitude = 0
             this.longitude = 0
             if('geolocation' in navigator){
@@ -12,10 +13,17 @@ export default {
                     this.latitude = pos.coords.latitude
                     this.longitude = pos.coords.longitude
                     this.speed = pos.coords.speed
+                    var loc = new LocationHelper().nearest(this.latitude,this.longitude, this.static.stations)
+                    var id = loc.id
+                    var station = this.static.stations[id].name
+                    console.log(loc + "////" + id + "////" + station)
 
                 };
                 var errorPosition = (err)=>{
-                    alert(err);
+                    //alert(err);
+                    alert("Please turn on your device GPS.");
+                    this.store.state.screens.pop();
+                    this.store.state.screen_data.pop();
                 };
                 var options = {
                     enableHighAccuracy:true,
@@ -37,7 +45,7 @@ export default {
                 data: this.$root.store.peekdata('ride'),
                 latitude: 0,
                 longitude: 0,
-                speed: "NOT_AVAILABLE",
+                speed:"",
 
                 
                 
@@ -58,6 +66,11 @@ export default {
             }
         },
         watch:{
+            answer:function(){
+                if(this.answer!=''){
+                    setTimeout(() => {this.answer='done';this.survey=false}, 1500);
+                }
+            },
             located: function(){
                 if(this.located){
                     this.update("Great!","Your location has been updated")
@@ -71,8 +84,9 @@ export default {
                 else if(this.movingstate == 'MOVING'){
                     this.update("You're now MOVING. You're at:  "+ this.current_station,"Next station is " + this.next_station)   
 
-                    if(this.current == this.from + 1){
-                        this.survey = true
+
+                    if(this.current == this.data.from){
+                        setTimeout(() => this.survey=true, 5000);
                     }
 
                 }
@@ -97,20 +111,10 @@ export default {
                 }
                 else{
                     
-                    this.update("You're now at " + this.current_station, (this.data.to - this.current) +  " more stations to your destination")
+                    this.update("You're now at " + this.current_station, this.remaining_stations +  " more stations to your destination")
                     }
                 
             },
-
-            survey: function(){
-                if(this.survey){
-                    
-                    // Perform survey
-
-
-                }
-    
-            }
 
         },
         computed: {
@@ -124,12 +128,22 @@ export default {
                 }
             },
             next_station: function(){
-                if(this.located){
+                if(this.current>=0){
                 if(this.direction == 'Northbound')
-                    return this.static.stations[this.current + 1].name
+                    if(this.current == 19)
+                        return ' '
+                    else
+                        return this.static.stations[this.current + 1].name
                 else if(this.direction == 'Southbound')
-                    return this.static.stations[this.current - 1].name
-                }
+                    if(this.current == 0)
+                        ' '
+                    else
+                        return this.static.stations[this.current - 0].name
+
+                 }
+            },
+            remaining_stations: function(){
+                return Math.abs(this.data.to - this.current) 
             },
             direction: function(){
 
@@ -143,7 +157,7 @@ export default {
                 return new LocationHelper().nearest(this.latitude,this.longitude,this.static.stations).id
             },
             movingstate: function(){
-                return new LocationHelper().describeSpeed()
+                return new LocationHelper().describeSpeed(this.speed)
             },
             seeker: function(){
                 if(this.located){
@@ -158,7 +172,6 @@ export default {
             update: function(title,subtitle){
                 this.title = title
                 this.subtitle = subtitle
-                
             }
         },
         template:
@@ -190,7 +203,7 @@ export default {
             <!-- LOCATION LOADER -->
 
             <transition name="wipeup" appear>
-                <div class="wide margin-large-y high flex justify-center align-center center text-align-center" style="box-sizing:border-box; position: relative" v-if="located">
+                <div class="wide margin-large-y high flex justify-center align-center center text-align-center" style="box-sizing:border-box; position: relative" v-if="!located">
                     
                         <span class="lnr lnr-map-marker large-text" style="position:relative" >
                         <div id="initial-loader">     
@@ -204,14 +217,14 @@ export default {
 
             <transition name="wipeup2" appear mode="out-in">
             <div style="width: 70%; min-height: 10rem; line-height: 0; margin-bottom: 3rem" class="flex space-between" v-if="located">
-                <div class="flex column white space-around">
+                <div class="flex column space-around">
                     
                     <span class="lnr lnr-clock light-gray-text" style="font-size: 4rem"></span>
                     <span>Est. Time Left</span>
                     <span class="medium-text bold">10 mins</span>
                 </div>
 
-                <div class="flex column white space-around">
+                <div class="flex column space-around">
                     
                     <span class="lnr lnr-train light-gray-text" style="font-size: 4rem"></span>
                     <span>Next Station</span>
@@ -264,25 +277,27 @@ export default {
             </div>
             -->
 
-            <div id="survey" class="padding-large shadow-up white fixed bottom wide" style="border-radius: 1rem 1rem 0 0">
+            <transition name="slideup">
+            <div v-if="survey" id="survey" class="padding-large shadow-up white fixed bottom wide" style="border-radius: 1rem 1rem 0 0">
 
-                <transition name="wipeup2" appear>
-                <span v-if="answer==''">
+              
+                <div v-show="answer==''">
                 <h1 style="padding: 1rem 0 !important">Was it too crowded in the previous station?</h1>
                 <button @click="answer='Yes'">Yes</button>
                 <button @click="answer='No'">No</button>
-                </span>
-                </transition>
+                </div>
+              
 
-                <transition name="wipeup2" appear>
-                <span v-if="answer!=''">
-                <h1 style="padding: 1rem 0 !important">Thanks for your response.</h1>
-                <span>You earned +5 points and +5 coins!</span>
-                </span>
+                <transition name="wipeup" mode="out-in">
+                    <div v-show="answer!=''&&answer!='done'">
+                    <h1 style="padding: 1rem 0 !important">Thanks for your response.</h1>
+                    <span>You earned <span class="accent-text bold">+5 points</span> and <span class="accent-text bold">+5 coins!</span></span>
+                    </div>
                 </transition>
                 
 
             </div>
+            </transition>
 
         </div>
         

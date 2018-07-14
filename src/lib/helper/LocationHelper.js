@@ -80,7 +80,7 @@ export default
     nearest(lat,lon,list){
         var mindif = 99999;
         var closest;
-        for (var index = 0; index < list.length; index++) {
+        for (var index = 0; index < list.length; ++index) {
 			var dif = this.PythagorasEquirectangular(lat, lon, list[index].latitude, list[index].longitude);
 			if (dif < mindif) {
 			  closest = index;

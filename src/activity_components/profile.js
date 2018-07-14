@@ -21,17 +21,15 @@ export default {
     <div id="profile-container" class="wide high flex column align-center text-align-center">
 
         <img id="profile-pic" src="custom/img.jpg">
-        <h1>{{account_details.first_name}} {{account_details.last_name}}</h1>
+        <h1>{{account_details.first_name}} {{account_details.middle_name}} {{account_details.last_name}}</h1>
         <span>{{account_details.location}}</span>
 
-        <span id="bio">{{account_details.bio}}</span>
+        <span id="bio">{{account_details.status}}</span>
 
         <div class="light-gray wide padding">
             <h3>Badges</h3>
             <div class="flex justify-center">
-                <span>Badge1</span>
-                <span>Badge2</span>
-                <span>Badge3</span>
+                <span v-for=""></span>
             </div>
         </div>
 

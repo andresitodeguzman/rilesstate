@@ -3,7 +3,14 @@ export default {
     name: 'Nearby',
     props: ['data'],
     data() {
+        
         return {
+            store: this.$root.store
+        }
+    },
+    methods:{
+        getdata(){
+
             
         }
     },

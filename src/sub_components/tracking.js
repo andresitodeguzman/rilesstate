@@ -20,10 +20,11 @@ export default {
         
         <div class="flex column padding tracking-stop" v-bind:class="status(index)" v-for="(item,index) in this.$root.store.static.stations">
             <span>{{item.name}}
-                <span class="guide" style="font-size: 0.8rem;"><span class="lnr lnr-map-marker"></span></span>
+                <span class="guide" style="font-size: 0.8rem;"><span v-if="status(index)=='active'" class="lnr lnr-map-marker"></span></span>
             </span>
             <span class="address">{{item.address}}</span>
         </div>
+        <br><br><br><br><br><br><br>
     </div>
     `
 }

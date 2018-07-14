@@ -13,7 +13,7 @@ export default {
         <div class="flex space-between align-center wide">
             <div class="flex align-center">
                 <weathericon v-bind:type="data.forecasts[0].forecast"></weathericon>
-                <span style="position: relative; left: -1rem">SUNNY</span>
+                <span style="position: relative; left: -1rem">CLOUDY</span>
             </div>
             <div style="font-size: 4rem; color: #444444" >
                 {{data.forecasts[0].temperature}}°
@@ -22,7 +22,7 @@ export default {
          
         <div class="flex space-evenly wide align-center justify-center"  style="transform: translateY(0.75rem);">
             <span class="sub-item flex column align-center" v-for="n in 4">
-                <span class="small-detail" style="color: #777777">MON {{data.forecasts[n].temperature}}°</span>
+                <span class="small-detail" style="color: #777777">{{data.forecasts[n].day}} {{data.forecasts[n].temperature}}°</span>
                 <weathericon size='small' v-bind:type="data.forecasts[n].forecast"></weathericon>
             </span>
             
