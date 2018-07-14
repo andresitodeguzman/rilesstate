@@ -264,10 +264,11 @@ final class Customer extends AccountUtility {
      * @return: Bool
      */
     final public function usernameExists(String $username){
+        $this->username = strip_tags($username);
         // Prepare Statement
         $stmt = $this->mysqli->prepare("SELECT `customer_id` FROM `customer` WHERE `username`=? LIMIT 1");
         // Bind Parameters
-        $stmt->bind_param("s", strip_tags($username));
+        $stmt->bind_param("s", $this->username);
         // Execute
         $stmt->execute();
 
