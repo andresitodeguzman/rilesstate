@@ -13,6 +13,7 @@ import Seeker from './sub_components/seeker.js';
 import Card from './sub_components/card.js';
 import WeatherIcon from './sub_components/weathericon.js';
 import Weather from './cards/weather.js';
+import StationInformation from './cards/stationinformation.js';
 import Announcements from './cards/announcements.js';
 import Nearby from './cards/nearby.js'
 import Custom from './cards/custom.js'
@@ -20,6 +21,11 @@ import ForumCategory from './activity_components/forumcategory.js';
 import Forum from './activity_components/forum.js';
 import Profile from './activity_components/profile.js';
 import Tracking from './sub_components/tracking.js';
+import EstablishmentList from './activity_components/establishmentlist.js';
+import Establishment from './activity_components/establishment.js';
+import CardSettings from './activity_components/cardsettings.js';
+import Leaderboard from './activity_components/leaderboard.js';
+import ManageCards from './activity_components/managecards.js';
 
 Vue.component('activity', Activity)
 Vue.component('onboarding', Onboarding),
@@ -38,11 +44,17 @@ Vue.component('profile', Profile)
 
 Vue.component('card', Card)
 Vue.component('weather', Weather)
+Vue.component('stationinformation', StationInformation)
 Vue.component('announcements', Announcements)
 Vue.component('nearby', Nearby)
 Vue.component('custom', Custom)
 Vue.component('forumcategory', ForumCategory)
 Vue.component('tracking', Tracking)
+Vue.component('establishmentlist', EstablishmentList)
+Vue.component('establishment', Establishment)
+Vue.component('cardsettings', CardSettings)
+Vue.component('leaderboard', Leaderboard)
+Vue.component('managecards', ManageCards)
 
 
 
@@ -58,20 +70,25 @@ var preloader = new Vue({
     el: '#preloader-container',
     data: {
         loading: true
-    }
+    },
 })
+
 
 
 /** NATIVE EVENTS */
 
-window.addEventListener('popstate',function(event){
-            
-    event.preventDefault()    
-    vue_app.$data.store.state.screens.pop()
-    vue_app.$data.store.state.screen_data.pop()
-
-})
-
 window.addEventListener('load',function(event){
     preloader.$data.loading = false
 })
+
+window.onpopstate = function(){
+    event.preventDefault()
+    vue_app.$data.store.state.screens.pop()
+    vue_app.$data.store.state.screen_data.pop()
+}
+  
+  
+
+        
+        
+

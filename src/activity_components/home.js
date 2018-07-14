@@ -1,18 +1,36 @@
 export default {
     
     name: 'Home',
+    beforeCreate: function(){
+        
+        var customer = JSON.parse(localStorage.getItem('customer'))
+        this.$root.store.state.account_details = customer
+
+    },
     data() {
         return {
+
+
+
+            // Store
             store: this.$root.store,
+
+            // App config
+            app_config: this.$root.store.state.app_config,
 
             // Menu visibility
             menu: false,
             ride: false,
 
+            // Managecards
+            managecards: false,
+
             // Ride
             stations : this.$root.store.static.stations,
             from: 0,
             to: 10
+
+
         }
     },
     methods:{
@@ -21,10 +39,10 @@ export default {
         }
     },
     template: `
-    <div class='flex column wide high background-gray'>
+    <div class='flex column wide high background-gray' v-bind:style="{'background': app_config.background}">
 
         <!-- Card container -->
-        <div class="wide" style="max-width: 100%; padding: 5rem 1.5rem; height: 90%; overflow-y: scroll; box-sizing: border-box" >
+        <div class="wide" style="max-width: 100%; padding: 5rem 1.5rem; height: 95%; overflow-y: scroll; box-sizing: border-box" >
             
         <transition-group name="wipeup" appear>
             <card v-for="(card,index) in store.state.cards" v-bind:key="index" v-bind:type="card.type" v-bind:data="card.data"></card>
@@ -35,12 +53,12 @@ export default {
         </div>
 
         <!-- Bottom: Action Bar -->
-        <div class="absolute wide bottom white shadow-up flex space-between" style="z-index: 0" >
+        <div v-if="!managecards" class="absolute wide bottom white shadow-up flex space-between" style="z-index: 0" >
             <span class="padding" tabindex=0 id="left-menu" @focus="menu = true" @blur="menu = false">
                 <span class="lnr lnr-menu" style="font-size: 1.5rem"></span>
             </span>
-            <button class="select-shrink flex accent shadow-more bold align-center" style="position: relative; top: -1.7rem; padding: 1rem 2.5rem; border-radius: 2rem" @click="ride=true; ">
-            <span class="lnr lnr-train" style="margin-right: 1rem; font-size: 1.5rem"></span>Ride a Train
+            <button class="select-shrink flex accent shadow-more bold align-center" v-bind:style="{position: 'relative', top: '-1.7rem', padding: '1rem 2.5rem', 'border-radius': '2rem','background-color':app_config.accent,color: app_config.accent_text}" @click="ride=true;">
+            <span class="lnr lnr-train" style="margin-right: 1rem; font-size: 1.3rem"></span>Ride a Train
             </button>
             <span class="padding" @click="navigatepath('community')">
                 <span class="lnr lnr-users" style="font-size: 1.5rem"></span>
@@ -48,9 +66,21 @@ export default {
         </div>
 
         <!-- Top: Assistant -->
-        <div class="fixed wide top">
-        <span id="header-accent" class="accent wide fixed" style="height:3rem; top:0; border-radius: 0 0 20% 20%"></span>
+        <div class="fixed wide top" v-if="!managecards">
+        <span id="header-accent" class="accent wide fixed" v-bind:style="{height:'3rem', top:'0', 'border-radius':'0 0 20% 20%','background-color': app_config.accent}"></span>
             <assistant></assistant>
+        </div>
+
+        <!-- Manage Cards -->
+        <div id="managecards" class="absolute wide top" v-if="managecards"  >
+
+        <!-- Action bar -->
+        <div class="flex accent justify-center space-between" style="width: 100%; padding-top: 0.5rem">
+            <button class="padding"  style="background-color: transparent; border: 0; font-size: 1rem; font-weight: bold;"  @click="managecards = false"><span class="lnr lnr-checkmark-circle" style="font-weight: bold; padding-right: 0.5rem"></span>Done</button>
+            <button class="padding"  style="background-color: transparent; border: 0; font-size: 1rem; font-weight: bold;" ><span class="lnr lnr-plus-circle padding-small" style="font-weight: bold"></span> Add a Card</button>
+        </div>
+
+        
         </div>
 
 
@@ -63,7 +93,7 @@ export default {
                 <a class="profile " @mousedown="navigatepath('profile')">
                     <img src="custom/img.jpg">
                         <span>
-                            <div class="name">{{store.state.account_details.first_name}} {{store.state.account_details.last_name}}</div>
+                            <div class="name">{{store.state.account_details.first_name == "" ? store.state.account_details.username : store.state.account_details.first_name}} {{store.state.account_details.last_name}}</div>
                             <span class="email">{{store.state.account_details.email}}</span>
                         </span>
                     <span class="settings">
@@ -71,7 +101,7 @@ export default {
                     </span>
                 </a>
                 <span class="flex column">
-                <span class="menu-item">Manage Cards</span>
+                <span class="menu-item" @mousedown="managecards=true">Manage Cards</span>
                 <span class="menu-item">LRT-1 Map</span>
                 <span class="menu-item">Shop and Dine</span>
                 <span class="menu-item">Exclusive Deals</span>
@@ -115,6 +145,9 @@ export default {
                     
                 </div>
             </transition>
+
+
+            
 
         
     

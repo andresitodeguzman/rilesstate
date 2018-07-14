@@ -113,6 +113,31 @@
 
 .sub-item + .sub-item
 
+/* Station Information */
+#stationinformation
+
+    .congestion
+        color: #444444
+        line-height: 1.4rem
+        display: flex
+        
+        
+        .indicator
+            margin: 1rem
+
+        .text
+            display: flex
+            flex-direction: column
+            justify-content: center
+            
+            .direction
+                font-size: 0.9rem
+                font-weight: 600
+
+            .status
+                color: gray
+
+
 /* Announcement */
 .announcement-item
     padding: 0.25rem 0 0.25rem 1rem
@@ -173,7 +198,6 @@
     color: $gray
     border-radius: 5% 5% 0 0
     overflow: hidden
-    
     
     .travel-selection
         flex-grow: 1
@@ -429,7 +453,8 @@ progress[value]::-webkit-progress-value
         padding: 0 0.5rem
         color: black
 
-            
+/* Community */
+    
 /* Experimental */
 ::-webkit-scrollbar
     display: none

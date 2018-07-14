@@ -7,6 +7,11 @@ export default {
             
         }
     },
+    methods:{
+        navigatelink(link){
+            window.open(link)
+        }
+    },
     template:
     `
     <div class="flex column">
@@ -15,7 +20,7 @@ export default {
         </span>
 
         <div style="margin-top: 0.5rem; text-align: right">
-            <a class="bold" v-bind:href="data.href" style="color: inherit">{{data.action}}</a>
+            <a class="bold" @click="navigatelink(data.href)" target="_blank" style="color: inherit">{{data.action}}</a>
         </div>
         
     </div>

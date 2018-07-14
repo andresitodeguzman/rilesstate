@@ -41,7 +41,7 @@ export default {
             <div class="flex align-center column wide padding-large" v-for="(item,index) in slides">
             <transition name="wipeup" appear><span  v-show="translate === (index * -100)" class="lnr accent-text absolute" v-bind:class="item.graphic" style="font-size: 5rem; top: -1rem"></span></transition>
             <span class="medium-text bold" style="margin: 3rem 0 2rem; position: relative; top: 2rem">{{item.title}}</span>
-            <span class="text-align-center" style="position: relative; top: 2rem">{{item.message}}</span>
+            <span class="text-align-center" style="position: relative; top: 2rem; width: 85%">{{item.message}}</span>
             </div>
         </div>
 
