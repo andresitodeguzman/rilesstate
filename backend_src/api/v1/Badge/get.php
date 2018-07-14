@@ -4,9 +4,9 @@
  * 2018
  * 
  * API
- * Station
+ * Badge
  * 
- * delete
+ * get
  */
 
 // Secure the API. Always include first.
@@ -17,24 +17,19 @@ require_once('../db.php');
 require_once('../autoload.php');
 
 // Checks if all the required data has been sent
-if(empty($_POST['station_id'])) die(throwError("ID is Required"));
+if(empty($_POST['badge_id'])) die(throwError("Badge ID is Required"));
 
-// Create a var and sanitize.
-$id = strip_tags($_POST['station_id']);
+// Create a var and sanitize
+$badge_id = strip_tags($_POST['badge_id']);
 
 // Call the method
-$data = $station->delete($id);
+$data = $badge->get($badge_id);
 
 // Check if data is present or empty
 if($data !== False){
-    echo json_encode(
-        array(
-            "code"=>"200",
-            "message"=>"Station deleted successfully!"
-        )
-    );
+    echo json_encode($data);
 } else {
-    throwError("Cannot find station");
+    throwError("Cannot find badge");
 }
 
-?> 
+?>
