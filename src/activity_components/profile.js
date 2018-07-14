@@ -3,7 +3,8 @@ export default {
     data(){
         return{
             store: this.$root.store,
-            account_details: this.$root.store.state.account_details
+            account_details: this.$root.store.state.account_details,
+            profile_details: this.$root.store.state.profile_details
         }
     },
     template:
@@ -26,10 +27,25 @@ export default {
 
         <span id="bio">{{account_details.status}}</span>
 
-        <div class="light-gray wide padding">
-            <h3>Badges</h3>
-            <div class="flex justify-center">
-                <span v-for=""></span>
+        <div class="padding text-align-center flex justify-center space-around" style="width: 85%; border-top: 1px solid #cccccc" >
+        <div><h3>Coins</h3><br><span class="large-text bold accent-text" style="line-height: 0.5rem">50</span></div>
+        <div><h3>Points</h3><br><span class="large-text bold accent-text" style="line-height: 0.5rem">150</span></div>
+
+        </div>
+
+        <div class="light-gray padding text-align-center shadow" style="width: 85%; border-radius: 0.5rem" >
+            <h3 style="margin-bottom: 0.5rem">Badges</h3>
+            <div class="flex justify-center" style=" flex-wrap: wrap">
+                <span class="margin-small white border-radius-large padding padding-x-large" v-for="item in profile_details.badges">
+                    <span style="margin-right: 0.25rem; font-size: 1.2rem" class="lnr"
+                    v-bind:class="{
+                        'lnr-pencil': item=='wordsmith',
+                        'lnr-magic-wand': item=='wizard',
+                        'lnr-dice': item=='gamer',
+                        'lnr-eye': item=='patroller',
+                        'lnr-pushpin': item=='wanderlust'}"
+                        ></span><br><span style="text-transform: uppercase; font-size: 0.8rem">{{item}}</span>
+                </span>
             </div>
         </div>
 

@@ -21,11 +21,8 @@ import ForumCategory from './activity_components/forumcategory.js';
 import Forum from './activity_components/forum.js';
 import Profile from './activity_components/profile.js';
 import Tracking from './sub_components/tracking.js';
-import EstablishmentList from './activity_components/establishmentlist.js';
-import Establishment from './activity_components/establishment.js';
-import CardSettings from './activity_components/cardsettings.js';
 import Leaderboard from './activity_components/leaderboard.js';
-import ManageCards from './activity_components/managecards.js';
+
 
 Vue.component('activity', Activity)
 Vue.component('onboarding', Onboarding),
@@ -50,11 +47,9 @@ Vue.component('nearby', Nearby)
 Vue.component('custom', Custom)
 Vue.component('forumcategory', ForumCategory)
 Vue.component('tracking', Tracking)
-Vue.component('establishmentlist', EstablishmentList)
-Vue.component('establishment', Establishment)
-Vue.component('cardsettings', CardSettings)
+
+
 Vue.component('leaderboard', Leaderboard)
-Vue.component('managecards', ManageCards)
 
 
 

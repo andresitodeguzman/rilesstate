@@ -22,6 +22,14 @@ export default
         if(isNaN(time)) time = 0;
         return time;
     }
+    
+    getApproximateTime(distance,speed){
+        distance = +distance*1000;
+        var time = +distance / +speed;
+        time = +time/60;
+        if(isNaN(time)) time = 0;
+        return time;
+    }
 
     /**
      * kmToMeters

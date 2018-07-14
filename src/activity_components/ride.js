@@ -108,6 +108,10 @@ export default {
                 }
                 else if(this.current == this.data.to){
                     this.update("You are now at " + this.current_station,"You may exit the train. Please check your belongings.")
+                    if (navigator.vibrate) {
+                        console.log("Should vibrate")
+                        navigator.vibrate([500,300,500])
+                    }
                 }
                 else{
                     
@@ -118,6 +122,12 @@ export default {
 
         },
         computed: {
+
+            time: function(){
+                new LocationHelper().getApproximateTime(new Location(this.latitude, this.longitude,this.static.stations[data.to].latitude, this.static.stations[data.to].latitude),this.speed)
+                
+            },
+
             located: function(){
                 
                 return (this.latitude !=0 && this.longitude !=0 )
@@ -221,7 +231,7 @@ export default {
                     
                     <span class="lnr lnr-clock light-gray-text" style="font-size: 4rem"></span>
                     <span>Est. Time Left</span>
-                    <span class="medium-text bold">10 mins</span>
+                    <span class="medium-text bold">{{time}}</span>
                 </div>
 
                 <div class="flex column space-around">
@@ -250,20 +260,21 @@ export default {
             
 
             <!-- Tracking -->
-            <transition name="slideleft">
+            
             <tracking class="margin-large-y" v-if="located" v-bind:from="data.from" v-bind:to="data.to" v-bind:current="current"></tracking>
-            </transition>
+            
 
             </div>
+            </transition>
 
             <div v-if="mapview" style="position: absolute;" class="accent wide high">
             
             </div>
 
             <div style="width: 100%; background: linear-gradient(transparent, white);" class="fixed wide text-align-center bottom padding-medium">
-                <button class="padding accent border-radius-large" @click="mapview=!mapview" style="width: 80%">
+                <!-- <button class="padding accent border-radius-large" @click="mapview=!mapview" style="width: 80%">
                 Map
-                </button>
+                </button> -->
             </div>
 
             <!--

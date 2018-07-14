@@ -13,6 +13,27 @@
     <link rel="stylesheet" href="dependencies/fonts/hk-grotesk.css">
     <link rel="stylesheet" href="styles/style.css">
 
+    <meta name="theme-color" content="#ffc000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Railtime">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon.png">
+
+    <link rel="manifest" href="/manifest.json">
+
+    <script type="text/javascript">
+        if('serviceWorker' in navigator){
+            navigator.serviceWorker.register('/serviceworker.js').then(reg=>{
+                console.log('SW Log: Registration was Successful');
+            }).catch(err=>{
+                var error = err;
+                console.log(`SW Log: [Error] ${error}`);
+            });
+        } else {
+            console.log(`SW Log: [Error] Feature Not Available on this Browser`);
+        }
+        </script>
+
 </head>
 
 <body>
@@ -45,16 +66,6 @@
 
         <!-- HOME -->
         <activity id="home" direction="slideleft">
-            <home></home>
-        </activity>
-
-        <!-- MANAGE CARDS -->
-        <activity id="managecards" direction="slideleft">
-            <managecards></managecards>
-        </activity>
-
-        <!-- CARD SETTINGS -->
-        <activity id="cardsettings" direction="slideleft">
             <home></home>
         </activity>
 
