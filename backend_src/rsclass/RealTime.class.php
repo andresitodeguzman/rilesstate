@@ -48,7 +48,7 @@ class RealTime implements MessageComponentInterface {
     public function onMessage(ConnectionInterface $from, $msg){
         // json to array
         $data = json_decode($msg,true);
-
+        echo $msg;
         // Check for empty session_id
         if(empty($data['session_id'])){
             foreach($this->clients as $client){
@@ -75,6 +75,8 @@ class RealTime implements MessageComponentInterface {
                         case("community-chat"):
                             $this->sendCommunityChat($from, $data['ChatMessage']);
                             break;
+                        case("share-ride"):
+                            $this->shareRide($from,$data['Ride']);
                     }
 
                 }
@@ -123,6 +125,7 @@ class RealTime implements MessageComponentInterface {
         $chatmessage = new \RailTime\ChatMessage($this->mysqli);
 
         $msg = $chatmessage->add($chat);
+        print_r($msg);
 
         if($msg['code'] == 500){
             foreach($this->clients as $client){
@@ -131,7 +134,7 @@ class RealTime implements MessageComponentInterface {
         } else {
 
             foreach($this->clients as $client){
-                if($from == $client) $client->send(json_encode(array("code"=>200,"message"=>"OK","type"=>"community-chat")));
+                if($from == $client) $client->send(json_encode(array("code"=>200,"message"=>"OK","type"=>"community-chat","ChatMessage"=>$msg)));
             }
 
             foreach ($this->clients as $client) {
@@ -141,6 +144,10 @@ class RealTime implements MessageComponentInterface {
                 }
             }
         }
+    }
+
+    public function shareRide($from,$ride){
+        return True;
     }
 
 }

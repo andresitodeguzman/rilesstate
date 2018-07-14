@@ -9,7 +9,7 @@
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
-use RailTimeSocket\Chat;
+use RailTimeSocket\RealTime;
 
 // Include the config file (Important)
 require_once("_system/config.php");

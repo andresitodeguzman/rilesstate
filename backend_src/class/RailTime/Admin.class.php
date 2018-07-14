@@ -223,7 +223,7 @@ final class Admin extends AccountUtility {
         $this->password = $this->passwordHash(strip_tags($array['password']));
 
         $stmt = $this->mysqli->prepare("INSERT INTO `admin`(`first_name`,`middle_name`,`last_name`,`address`,`status`,`department`,`position`,`gender`,`email`,`mobile_number`,`profile_picture`,`username`,`password`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
-        $stmt->bind_param("sssssssssssss",$this->first_name,$this->middle_name,$this->last_name,$address,$status,$department,$position,$gender,$email,$mobile_number,$profile_picture);
+        $stmt->bind_param("sssssssssssss",$this->first_name,$this->middle_name,$this->last_name,$address,$status,$department,$position,$gender,$email,$mobile_number,$profile_picture,$username,$password);
 
         if($stmt->execute()){
             return True;
@@ -347,11 +347,12 @@ final class Admin extends AccountUtility {
      * @return: String
      */
     final private function getPasswordByUsername(String $username){
+        $this->username = $username;
         // Prepared stmt
         $stmt = $this->mysqli->prepare("SELECT `password` FROM `admin` WHERE `username`=? LIMIT 1");
 
         // Bind param
-        $stmt->bind_param("s", $username);
+        $stmt->bind_param("s", $this->username);
         $stmt->execute();
 
         $stmt->bind_result($password);
