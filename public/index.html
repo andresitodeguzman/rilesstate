@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- Set Title -->
+    <title>Railtime</title>
+
+    <!-- Load Styles -->
+    <link rel="stylesheet" href="dependencies/fonts/linear-icons.css">
+    <link rel="stylesheet" href="dependencies/fonts/hk-grotesk.css">
+    <link rel="stylesheet" href="styles/style.css">
+
+</head>
+
+<body>
+
+    <!-- Once upon a time, our page started to load.-->
+    
+    <!-- This is a preloader -->
+    <div id="preloader-container">
+    <transition name="wipeup">
+        <div id="preloader" class="accent fixed wide high flex center" style="z-index: 10" v-if="loading">
+            <div class="lnr lnr-train xxlarge-text"></div>
+        </div>
+    </transition>
+    </div>
+
+
+
+    <!-- And yas, here's the app -->
+    <div id="app">
+        
+        <!-- Three-pane Onboarding -->
+        <onboarding></onboarding>
+
+        <!-- Login/Register Activity-->
+        <activity id="login" direction="slideleft">
+            
+            <login></login>
+
+        </activity>
+
+        <!-- HOME -->
+        <activity id="home" direction="slideleft">
+            <home></home>
+        </activity>
+
+        <!-- MANAGE CARDS -->
+        <activity id="managecards" direction="slideleft">
+            <managecards></managecards>
+        </activity>
+
+        <!-- CARD SETTINGS -->
+        <activity id="cardsettings" direction="slideleft">
+            <home></home>
+        </activity>
+
+        <!-- RIDE-->
+        <activity id="ride" direction="slideleft">
+            <ride></ride>
+        </activity>
+
+        <!-- COMMUNITY -->
+        <activity id="community" direction="slideleft">
+            
+            <community></community>
+
+        </activity>
+
+        <!-- CHATROOM -->
+        <activity id="chatroom" direction="slideleft">
+                <chatroom></chatroom>
+        </activity>
+
+        <!-- FORUM CATEGORY -->
+        <activity id="forumcategory" direction="slideleft">
+                <forumcategory></forumcategory>
+        </activity>
+
+        <!-- FORUM-->
+        <activity id="forum" direction="slideleft">
+                <forum></forum>
+        </activity>
+
+        <!-- PROFILE -->
+        <activity id="profile" direction="slideleft">
+                <profile></profile>
+        </activity>
+
+        <activity id="leaderboard">
+            <leaderboard></leaderboard>
+        </activity>
+        
+        
+    </div>
+    
+
+
+
+
+    <!-- Tadaa, that's it! -->
+
+
+
+    <!-- Load Scripts (FRONT END) -->
+    <script src="dependencies/scripts/jquery-ajax.js"></script>
+
+    <script src="dependencies/scripts/vue.js"></script>
+    <script src="app.js" type="module"></script>
+
+    
+    
+    
+    
+    
+
+</body>
+</html>
+
+
+
+<!-- Simplified app structure: INDEX.HTML-->
+<!-- <html>
+
+    <activity id="home">    // imagine <activity> as a full width and height white container.
+        <home></home>       // then <home> contains the layout
+    </activity>
+
+    <activity id="profile">     /*  the id="profile" is an identifier to toggle which activities should be
+        <profile></profile>         shown on a particular situation /*
+    </activity>
+
+
+    <script>
+        // Scripts are loaded here
+    </script>
+
+</html> -->

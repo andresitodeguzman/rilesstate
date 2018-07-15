@@ -1,0 +1,33 @@
+$base: rgba(10,20,50,1)
+$accent: rgba(0,100,255,0.25)
+$shadow: 0 2px 10px 0px rgba(50,100,255,0.25)
+$outline:  1px dashed rgba(70,140,255,1)
+$outline-hover:  1px dashed rgba(255,255,255,1)
+
+/*Modify*/
+
+
+
+/** PROTOTYPE MODE
+ *  Useful for debugging layouts and box sizing.
+ */
+
+* [blueprint]
+    background-color: $base !important
+    color: white !important
+    
+    *
+        background-color: $accent !important
+        box-shadow: $shadow
+        outline: $outline !important
+        outline-offset: -1px        
+        color: white !important
+        
+
+        &:hover
+            outline: $outline-hover !important
+            box-shadow: 0 2px 10px 0px rgba(50,100,255,1)
+
+        
+    input::placeholder
+        color: rgba(70,140,255,1) !important

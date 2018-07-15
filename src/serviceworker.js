@@ -36,7 +36,7 @@ let assetsList = [
     '/cards/weather.js',
     
     '/custom/img.jpg',
-    ,
+
     '/dependencies/fonts/hkfonts/HKGrotesk-Regular.woff2',
     '/dependencies/fonts/lnrfonts/Linearicons-Free.woff2',
     '/dependencies/fonts/hk-grotesk.css',

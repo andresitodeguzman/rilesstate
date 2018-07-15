@@ -1,0 +1,126 @@
+/* POSITION */
+    
+.fixed
+    position: fixed
+
+.absolute
+    position: absolute
+
+/* ABSOLUTE POSITIONING */
+.left
+    left: 0
+
+.right
+    right: 0
+
+.top
+    top: 0
+
+.bottom
+    bottom: 0
+
+/* DISPLAY */
+
+// Flex
+.flex
+    display: flex
+
+    &.center
+        &>* 
+            margin: auto
+
+    &.justify-center
+        justify-content: center
+    &.space-evenly
+        justify-content: space-evenly
+    &.align-center
+        align-items: center
+    &.space-between
+        justify-content: space-between
+    &.space-around
+        justify-content: space-around
+    &.column
+        flex-direction: column
+
+
+/* WIDTH AND HEIGHT */
+.wide
+    width: 100%
+
+.high
+    height: 100%
+
+.wide-vw
+    width: 100vw
+
+.high-vh
+    height: 100vh
+
+/* FONT SIZE */
+.medium-text
+    font-size: $medium
+
+.large-text
+    font-size: $large
+
+.xxlarge-text
+    font-size: $xxlarge
+
+/* FONT STYLE */
+.bold
+    font-weight: bold
+
+/* TEXT ALIGNMENT*/
+.text-align-center
+    text-align: center
+
+/* COLORS */
+.white
+    background-color: #ffffff
+
+.white-text
+    color: #ffffff
+
+.light-gray
+    background-color: $light-gray
+
+
+/* MARGIN */
+.margin-large
+    margin: $large
+
+.margin
+    margin: $normal
+
+.margin-small
+    margin: $small
+
+.margin-y
+    margin-top: $normal
+    margin-bottom: $normal
+
+.margin-large-y
+    margin-top: $large
+    margin-bottom: $large
+
+/* PADDING */
+.padding
+    padding: $normal
+
+.padding-medium
+    padding: $medium
+
+.padding-large
+    padding: $large
+
+.padding-large-x
+    padding-left: $large
+    padding-right: $large
+
+/* BORDER-RADIUS */
+.border-radius-large
+    border-radius: $large
+
+/* EXPERIMENTAL */
+.unselect
+    user-select: none
