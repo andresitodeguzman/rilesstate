@@ -1,0 +1,16 @@
+{
+    "name": "Railtime",
+    "short_name": "Railtime",
+    "lang": "en-US",
+    "start_url": "/",
+    "scope": "/",
+    "display": "fullsccreen",
+    "theme_color": "#ffc000",
+    "background_color":"#ffc000",
+    "icons": [
+      {
+        "src": "/icon.png",
+        "sizes": "512x512"
+      }
+    ]
+  }
