@@ -57,7 +57,13 @@ final class Forum{
 
         // Prepare Statement
         $stmt = $this->mysqli->prepare(
-            "SELECT * FROM forum WHERE forum_id=? LIMIT 1");
+            "SELECT " . 
+                FORUM_ID . ","
+                FORUM_STATION_ID . ","
+                FORUM_COMMENT . ","
+                FORUM_COMMENT_BY . ","
+                FORUM_DATE_ADDED . 
+                " FROM " . FORUM_TABLE . " WHERE " . FORUM_ID . "=? LIMIT 1");
 
         // Bind Parameters
         $stmt->bind_param("i", $this->forum_id);
@@ -80,11 +86,11 @@ final class Forum{
         // Fetch result
         while($stmt->fetch()){
             $forum_arr = array(
-                'forum_id'=>$forum_id,
-                'forum_station_id'=>$forum_station_id,
-                'forum_comment'=>$forum_comment,
-                'forum_comment_by'=>$forum_comment_by,
-                'forum_date_added'=>$forum_date_added
+                FORUM_ID=>$forum_id,
+                FORUM_STATION_ID=>$forum_station_id,
+                FORUM_COMMENT=>$forum_comment,
+                FORUM_COMMENT_BY=>$forum_comment_by,
+                FORUM_DATE_ADDED=>$forum_date_added
             );
         }
 
@@ -98,18 +104,18 @@ final class Forum{
      */
     final public function getAll(){
         // Prepare query
-        $query = "SELECT * FROM forum";
+        $query = "SELECT * FROM " . FORUM_TABLE;
         // Create empty array
         $arr = array();
         // Do Query
         if($result = $this->mysqli->query($query)){
             while($st = $result->fetch_array()){
                 $data = array(
-                    'forum_id'=>$st['forum_id'],
-                    'forum_station_id'=>$st['forum_station_id'],
-                    'forum_comment'=>$st['forum_comment'],
-                    'forum_comment_by'=>$st['forum_comment_by'],
-                    'forum_date_added'=>$st['forum_date_added']
+                    FORUM_ID=>$st[FORUM_ID],
+                    FORUM_STATION_ID=>$st[FORUM_STATION_ID],
+                    FORUM_COMMENT=>$st[FORUM_COMMENT],
+                    FORUM_COMMENT_BY=>$st[FORUM_COMMENT_BY],
+                    FORUM_DATE_ADDED=>$st[FORUM_DATE_ADDED]
                 );
 
                 $arr[] = $data; 
@@ -130,7 +136,7 @@ final class Forum{
         // Set props
         $this->forum_id = $forum_id;
         // Prepare Statement
-        $stmt = $this->mysqli->prepare("DELETE FROM forum WHERE forum_id=? LIMIT 1");
+        $stmt = $this->mysqli->prepare("DELETE FROM " . FORUM_TABLE . " WHERE " . FORUM_ID . "=? LIMIT 1");
         // Bind parameters
         $stmt->bind_param("i", $this->forum_id);
         // Do query
@@ -148,15 +154,19 @@ final class Forum{
      */
     final public function add(Array $array){
         // Check for empty params
-        if(empty($array['forum_comment'])) return "Forum Comment is Required";
+        if(empty($array[FORUM_COMMENT])) return "Forum Comment is Required";
 
         // Set params
-        if(!empty($array['forum_station_id'])) $this->forum_station_id = strip_tags($array[FORUM_STATION_ID]);
+        if(!empty($array[FORUM_STATION_ID])) $this->forum_station_id = strip_tags($array[FORUM_STATION_ID]);
         if(!empty($array[FORUM_COMMENT])) $this->forum_comment = strip_tags($array[FORUM_COMMENT]);
-        if(!empty($array['forum_comment_by'])) $this->forum_comment_by = strip_tags($array[FORUM_COMMENT_BY]);
+        if(!empty($array[FORUM_COMMENT_BY])) $this->forum_comment_by = strip_tags($array[FORUM_COMMENT_BY]);
         
         // Prepare statement
-        $stmt = $this->mysqli->prepare("INSERT INTO forum(forum_station_id,forum_comment,forum_comment_by,forum_date_added) VALUES(?,?,?,?)");
+        $stmt = $this->mysqli->prepare("INSERT INTO " . FORUM_TABLE . "(" .
+            FORUM_STATION_ID . "," .
+            FORUM_COMMENT . "," .
+            FORUM_COMMENT_BY . "," .
+            FORUM_DATE_ADDED . ") VALUES(?,?,?,?)");
 
         // Bind Parameters
         $stmt->bind_param("ssss",
@@ -180,14 +190,15 @@ final class Forum{
      */
     final public function update(Array $array){
         //Check for empty params
-        if(empty($array['forum_comment'])) return "Forum Comment is Required";
+        if(empty($array[FORUM_COMMENT])) return "Forum Comment is Required";
 
         // Set props
         $this->forum_id = strip_tags($array[FORUM_ID]);
-        if(!empty($array['forum_comment'])) $this->forum_comment = strip_tags($array['forum_comment']);
+        if(!empty($array[FORUM_COMMENT])) $this->forum_comment = strip_tags($array[FORUM_COMMENT]);
 
         // Prepare statement
-        $stmt = $this->mysqli->prepare("UPDATE forum SET forum_comment=? WHERE forum_id=? LIMIT 1");
+        $stmt = $this->mysqli->prepare("UPDATE " . FORUM_TABLE . " SET " . FORUM_COMMENT . "=? WHERE " .
+            FORUM_ID . "=? LIMIT 1");
 
         $stmt->bind_param("ss",
             $this->forum_comment,

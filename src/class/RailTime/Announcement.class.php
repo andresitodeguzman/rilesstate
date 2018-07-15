@@ -20,6 +20,12 @@ final class Announcement{
     public $announcement_caption;
     public $announcement_date;
 
+    const ANNOUNCEMENT_TABLE = "announcement";
+    const ANNOUNCEMENT_ID = "announcement_id";
+    const ANNOUNCEMENT_CAPTION = "announcement_caption";
+    const ANNOUNCEMENT_DATE = "announcement_date"
+
+
     // Methods
 
     /**
@@ -47,7 +53,10 @@ final class Announcement{
         $this->announcement_id = $announcement_id;
 
         // Prepare Statement
-        $stmt = $this->mysqli->prepare("SELECT * FROM announcement WHERE announcement_id=? LIMIT 1");
+        $stmt = $this->mysqli->prepare("SELECT " . 
+            ANNOUNCEMENT_ID . "," .
+            ANNOUNCEMENT_CAPTION . "," .
+            ANNOUNCEMENT_DATE . " FROM " . ANNOUNCEMENT_TABLE . " WHERE " . ANNOUNCEMENT_ID . "=? LIMIT 1");
 
         // Bind Parameters
         $stmt->bind_param("i", $this->announcement_id);
@@ -64,9 +73,9 @@ final class Announcement{
         // Fetch result
         while($stmt->fetch()){
             $announcement_arr = array(
-                'annnouncement_id'=>$announcement_id,
-                'announcement_caption'=>$announcement_caption,
-                'announcement_date'=>$announcement_date
+                ANNOUNCEMENT_ID=>$announcement_id,
+                ANNOUNCEMENT_CAPTION=>$announcement_caption,
+                ANNOUNCEMENT_DATE=>$announcement_date
             );
         }
 
@@ -80,16 +89,16 @@ final class Announcement{
      */
     final public function getAll(){
         // Prepare query
-        $query = "SELECT * FROM accouncement";
+        $query = "SELECT * FROM " . ANNOUNCEMENT_TABLE;
         // Create empty array
         $arr = array();
         // Do Query
         if($result = $this->mysqli->query($query)){
             while($st = $result->fetch_array()){
                 $data = array(
-                    'announcement_id'=>$st['announcement_id'],
-                    'announcement_caption'=>$st['announcement_caption'],
-                    'announcement_date'=>$st['announcement_date']
+                    ANNOUNCEMENT_ID=>$st[ANNOUNCEMENT_ID],
+                    ANNOUNCEMENT_CAPTION=>$st[ANNOUNCEMENT_CAPTION],
+                    ANNOUNCEMENT_DATE=>$st[ANNOUNCEMENT_DATE]
                 );
 
                 $arr[] = $data; 
@@ -112,7 +121,7 @@ final class Announcement{
         $this->announcement_id = $announcement_id;
 
         // Prepare Statement
-        $stmt = $this->mysqli->prepare("DELETE FROM accouncement WHERE announcement_id=? LIMIT 1");
+        $stmt = $this->mysqli->prepare("DELETE FROM " . ANNOUNCEMENT_TABLE . " WHERE " . ANNOUNCEMENT_ID . "=? LIMIT 1");
         
         // Bind parameters
         $stmt->bind_param("i", $this->announcement_id);
@@ -132,13 +141,15 @@ final class Announcement{
      */
     final public function add(Array $array){
         // Check for empty params
-        if(empty($array['announcement_caption'])) return "Announcement Caption is Required";
+        if(empty($array[ANNOUNCEMENT_CAPTION])) return "Announcement Caption is Required";
 
         // Set params
-        $this->announcement_caption = strip_tags($array['announcement_caption']);
+        $this->announcement_caption = strip_tags($array[ANNOUNCEMENT_CAPTION]);
 
         // Prepare statement
-        $stmt = $this->mysqli->prepare("INSERT INTO accouncement(announcement_caption,announcement_date) VALUES(?,?)");
+        $stmt = $this->mysqli->prepare("INSERT INTO " . ANNOUNCEMENT_TABLE . "(" .
+            ANNOUNCEMENT_CAPTION . "," .
+            ANNOUNCEMENT_DATE . ") VALUES(?,?)");
 
         // Bind Parameters
         $stmt->bind_param("ss",
@@ -161,15 +172,16 @@ final class Announcement{
      */
     final public function update(Array $array){
         //Check for empty params
-        if(empty($array['annnouncement_id'])) return "Announcement ID is Required";
-        if(empty($array['announcement_caption'])) return "Announcement Caption is Required";
+        if(empty($array[ANNOUNCEMENT_ID])) return "Announcement ID is Required";
+        if(empty($array[ANNOUNCEMENT_CAPTION])) return "Announcement Caption is Required";
 
         // Set props
         $this->announcement_id = strip_tags($array[ANNOUNCEMENT_ID]);
-        if(!empty($array['announcement_caption'])) $this->announcement_caption = strip_tags($array['announcement_caption']);
+        if(!empty($array[ANNOUNCEMENT_CAPTION$this->announcement_caption = strip_tags($array[ANNOUNCEMENT_CAPTION]);
         
         // Prepare statement
-        $stmt = $this->mysqli->prepare("UPDATE announcement SET announcement_caption=? WHERE announcement_id=? LIMIT 1");
+        $stmt = $this->mysqli->prepare("UPDATE " . ANNOUNCEMENT_TABLE . 
+            " SET " . ANNOUNCEMENT_CAPTION . "=? WHERE " . ANNOUNCEMENT_ID . "=? LIMIT 1");
         
         $stmt->bind_param("ss",
             $this->announcement_caption,
