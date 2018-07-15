@@ -118,16 +118,18 @@ export default {
                     radius: 500,
                     list: [
                         {
-                            name: 'Pan de Manila',
+                            name: 'Food Heroes Cafe',
                             type: 'food',
-                            location: 'Pasay',
-                            nearest_station: 'Edsa Station'
+                            location: 'Tondo, Manila',
+                            nearest_station: 'Doroteo Jose',
+                            img: 'custom/heroescafe.png'
                         },
                         {
                             name: 'Manila Opera Hotel',
                             type: 'hotel',
-                            location: 'Somewhere City',
-                            nearest_station: 'Dorroteo Jose'
+                            location: 'Sta Cruz, Manila',
+                            nearest_station: 'Doroteo Jose',
+                            img: 'custom/operahotel.png'
                         }
                     ]
                 }},

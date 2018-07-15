@@ -1,7 +1,7 @@
 var slides = [
-    {graphic: "lnr-train", title: "Past", message: "The programming language used by millions of websites for their server-side processing needs."},
-    {graphic: "lnr-map", title: "Present", message: "Visual Studio Code is a free source code editor that provides IDE-like features"},
-    {graphic: "lnr-users", title: "Future", message: "Vue.js is an open-source progressive JavaScript framework for building powerful Single Page Applications"}
+    {graphic: "lnr-train", title: "Track your ride", message: "Never miss the station again. Ever."},
+    {graphic: "lnr-map", title: "Get recommendations", message: "Need a quick fix? We got'ya."},
+    {graphic: "lnr-users", title: "Be with community", message: "Create connections. Make new friends. "}
 ]
 
 

@@ -22,7 +22,7 @@ export default
         if(isNaN(time)) time = 0;
         return time;
     }
-    
+
     getApproximateTime(distance,speed){
         distance = +distance*1000;
         var time = +distance / +speed;
@@ -123,8 +123,15 @@ export default
      */
     timeFormatter(secDouble){
         var sec = +secDouble;
-        var min = sec/60;
-        var h = min/60;
+        //var min = sec/60;
+        //var h = min/60;
+
+        
+        hour = sec / 3600
+        sec %= 3600
+        minutes = sec / 60
+        sec %= 60
+        seconds = sec
 
         var time = {
             "hour":Math.trunc(h),

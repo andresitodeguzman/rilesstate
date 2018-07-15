@@ -452,9 +452,6 @@ a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   overflow-x: scroll;
   margin-right: 0;
 }
@@ -485,7 +482,7 @@ a {
   width: 10rem;
   height: 7rem;
   margin-bottom: 1rem;
-  opacity: 0.2;
+  opacity: 1;
 }
 
 .places .item .name {

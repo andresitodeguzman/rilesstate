@@ -22,12 +22,12 @@ export default {
         <!-- CHATROOM -->
         <transition name="wipeup2" appear>
         <div v-if="selected=='Chatrooms'" class="fixed top wide" style="padding: 1rem; margin-top: 3.5rem">
-            <div class="select-shrink white padding shadow wide list-item flex align-center" v-for="(item,index) in store.communitydata.chat.chatrooms" style="border-radius: 0.25rem; margin-bottom: 1rem">
+            <div class="select-shrink white padding shadow wide list-item flex align-center" v-for="(item,index) in store.communitydata.chat.chatrooms" style="border-radius: 0.25rem; margin-bottom: 1rem" @click="navigate('chatroom',{'index':index})">
                 <span>
                     <img src="custom/img.jpg" style="width: 3rem; border-radius: 50%">
                     <span class="online"></span>
                 </span>
-                <span style="padding-left: 1rem">
+                <span style="padding-left: 1rem" >
                     <div class="name">{{item.name}}</div>
                     <span class="last">last message here</span>
                 </span>

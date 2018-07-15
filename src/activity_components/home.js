@@ -36,6 +36,27 @@ export default {
     methods:{
         navigatepath(path,data){
             this.store.navigatepath(path,data)
+        },
+        clearlocal(){
+            this.store.state.account_details =  {
+                
+                
+                address:"",
+                customer_id: 0,
+                date_registered:"",
+                dev_share_stats:"",
+                email:"",
+                first_name:"",
+                gender:"",
+                last_name:"",
+                middle_name:"",
+                mobile_number:"",
+                profile_picture:null,
+                status:"",
+                username:""
+    
+                }
+                localStorage.clear()
         }
     },
     template: `
@@ -106,7 +127,7 @@ export default {
                 <span class="menu-item">Shop and Dine</span>
                 <span class="menu-item">Exclusive Deals</span>
                 <span class="menu-item">Help</span>
-                <span class="menu-item">About</span>
+                <span class="menu-item" @mousedown="clearlocal();">Logout</span>
                 </span>
             </div>
         </transition>

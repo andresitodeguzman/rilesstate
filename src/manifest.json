@@ -4,7 +4,7 @@
     "lang": "en-US",
     "start_url": "/",
     "scope": "/",
-    "display": "standalone",
+    "display": "fullsccreen",
     "theme_color": "#ffc000",
     "background_color":"#ffc000",
     "icons": [

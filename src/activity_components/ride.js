@@ -79,10 +79,10 @@ export default {
             movingstate: function(){
                 this.survey = false
                 if(this.movingstate == 'GAINING_SPEED'){
-                    this.update("You're now GAINING SPEED. You're at: "+ this.current_station,"Next station is " + this.next_station)   
+                    this.update("You're now leaving "+ this.current_station,"Next is " + this.next_station)   
                 }
                 else if(this.movingstate == 'MOVING'){
-                    this.update("You're now MOVING. You're at:  "+ this.current_station,"Next station is " + this.next_station)   
+                    this.update("[normal speed.] ","Please ensure safety at all times.")   
 
 
                     if(this.current == this.data.from){
@@ -102,12 +102,12 @@ export default {
                 this.survey = false
                 if(this.current == this.data.from){
                     if(this.movingstate=="STOP")
-                        this.update("You're waiting","Random tip here when the user is waiting for a train")
+                        this.update("You're at " + this.current_station,"Please wait for a coming train")
                     else if(this.movingstate == "NOT_AVAILABLE")
                         this.update("You're at " + this.current_station,"Sorry, we cannot determine your current speed.")
                 }
                 else if(this.current == this.data.to){
-                    this.update("You are now at " + this.current_station,"You may exit the train. Please check your belongings.")
+                    this.update("End of Trip.","You have arrived at " + this.current_station + ". Thank you.")
                     if (navigator.vibrate) {
                         console.log("Should vibrate")
                         navigator.vibrate([500,300,500])
@@ -115,7 +115,7 @@ export default {
                 }
                 else{
                     
-                    this.update("You're now at " + this.current_station, this.remaining_stations +  " more stations to your destination")
+                    this.update("You're now at " + this.current_station, this.remaining_stations +  " more station(s) to your destination")
                     }
                 
             },
@@ -124,8 +124,11 @@ export default {
         computed: {
 
             time: function(){
-                new LocationHelper().getApproximateTime(new Location(this.latitude, this.longitude,this.static.stations[data.to].latitude, this.static.stations[data.to].latitude),this.speed)
-                
+                console.log("Lat:" + this.latitude + " Station: " + this.static.stations[this.data.to].latitude)
+                //return new LocationHelper().getApproximateTime(new Location(this.latitude, this.longitude,this.static.stations[this.data.to].latitude, this.static.stations[this.data.to].latitude),this.speed)
+                var distance = new LocationHelper().distance(this.latitude, this.longitude,this.static.stations[this.data.to].latitude,this.static.stations[this.data.to].longitude)
+                var time = new LocationHelper().getApproximateTime(distance,this.speed)
+                return new LocationHelper().timeFormatter(time*100)
             },
 
             located: function(){
@@ -148,7 +151,7 @@ export default {
                     if(this.current == 0)
                         ' '
                     else
-                        return this.static.stations[this.current - 0].name
+                        return this.static.stations[this.current - 1].name
 
                  }
             },
@@ -231,7 +234,7 @@ export default {
                     
                     <span class="lnr lnr-clock light-gray-text" style="font-size: 4rem"></span>
                     <span>Est. Time Left</span>
-                    <span class="medium-text bold">{{time}}</span>
+                    <span class="medium-text bold">{{time.minutes == 'Infinity' ? '-' : time.minutes}}min {{time.seconds == 'Infinity' ? '-' : time.seconds}}sec</span>
                 </div>
 
                 <div class="flex column space-around">
