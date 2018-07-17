@@ -30,7 +30,7 @@ export default {
 
             // Sessions, Caches, etc?
             session_details: {
-                logged_in: false,
+                logged_in: true,
                 session_id: ""
             },
 
@@ -171,7 +171,7 @@ export default {
             ],
 
             // Screens
-            screens : [],
+            screens : ['home'],
             screen_data: [],
             
 
