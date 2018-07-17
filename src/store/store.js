@@ -171,8 +171,8 @@ export default {
             ],
 
             // Screens
-            screens : ['Home'],
-            screen_data: ['Home'],
+            screens : [],
+            screen_data: [],
             
 
         },
