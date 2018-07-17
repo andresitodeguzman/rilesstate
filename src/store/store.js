@@ -30,7 +30,7 @@ export default {
 
             // Sessions, Caches, etc?
             session_details: {
-                logged_in: true,
+                logged_in: false,
                 session_id: ""
             },
 
